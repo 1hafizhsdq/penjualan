@@ -3,34 +3,37 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-    <h4>Form Tambah Barang</h4>
-    <form method="POST" action="<?= base_url('Barang/newbarang') ?>">
+    <h4>Form Edit Barang</h4>
+    <?php foreach($databar as $db) : ?>
+        <form method="POST" action="<?= base_url('Barang/updatebarang') ?>">
+        <input type="hidden" name="id" value="<?= $db->id ?>">
         <div class="form-group">
             <label for="namabar">Nama Barang</label>
-            <input type="text" class="form-control" id="namabar" name="namabar" placeholder="Nama Barang" value="">
+            <input type="text" class="form-control" id="namabar" name="namabar" placeholder="Nama Barang" value="<?= $db->nama_barang ?>">
             <?= form_error('namabar','<small class="text-danger pl-3">','</small>') ?>
             <?= set_value('namabar') ?>
         </div>
         <div class="form-group">
             <label for="satuan">satuan</label>
-            <input type="text" class="form-control" id="satuan" name="satuan" placeholder="Kg, Liter, dsb" value="">
+            <input type="text" class="form-control" id="satuan" name="satuan" placeholder="Kg, Liter, dsb" value="<?= $db->satuan ?>">
             <?= form_error('satuan','<small class="text-danger pl-3">','</small>') ?>
             <?= set_value('satuan') ?>
         </div>
         <div class="form-group">
             <label for="hrgjual">Harga Jual</label>
-            <input type="text" class="form-control" id="hrgjual" name="hrgjual" placeholder="Rp." value="">
+            <input type="text" class="form-control" id="hrgjual" name="hrgjual" placeholder="Rp." value="<?= $db->harga_jual ?>">
             <?= form_error('hrgjual','<small class="text-danger pl-3">','</small>') ?>
             <?= set_value('hrgjual') ?>
         </div>
         <div class="form-group">
             <label for="hrgbeli">Harga Beli</label>
-            <input type="text" class="form-control" id="hrgbeli" name="hrgbeli" placeholder="Rp." value="">
+            <input type="text" class="form-control" id="hrgbeli" name="hrgbeli" placeholder="Rp." value="<?= $db->harga_beli ?>">
             <?= form_error('hrgbeli','<small class="text-danger pl-3">','</small>') ?>
             <?= set_value('hrgbeli') ?>
         </div>
-        <button type="submit" class="btn btn-primary float-right">Tambah</button>
+        <button type="submit" class="btn btn-primary float-right">Edit Barang</button>
     </form>
+    <?php endforeach ; ?>
 
 </div>
 <!-- /.container-fluid -->

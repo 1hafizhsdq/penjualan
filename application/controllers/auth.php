@@ -23,7 +23,7 @@ class auth extends CI_Controller
             ['min_length' => 'password to short']
         );
         if ($this->form_validation->run() == false) { //jika falidasi berjalan dan itu salah
-            $data['title'] = 'CB-PERPUS/Login';
+            $data['title'] = 'Penjualan';
             $this->load->view('templates/auth_header', $data);
             $this->load->view('auth/login');
             $this->load->view('templates/auth_footer');

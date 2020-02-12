@@ -41,11 +41,6 @@
             <?php } else { ?>
             <li class="nav-item ">
             <?php } ?>
-            <?php if ($jummenu == 1) { ?>
-                <span class="nav-link mt-3" href="<?= base_url(''); ?>">
-                    <i class="fas fa-fw fa-columns"></i>
-                    <span><?= $m['menu']; ?></span>
-                <?php } else { ?>
 
                     <a class="nav-link collapsed" data-toggle="collapse" onclick="SetActiveDiv(this);" data-target="#menu-<?= $m['id']; ?>" aria-expanded="true" aria-controls="collapseTwo">
                         <i class="<?= $m['icon']; ?>"></i>
@@ -63,7 +58,6 @@
                     </div>
             </li>
             <hr class="sidebar-divider">
-        <?php } ?>
     <?php endforeach; ?>
 
     <!-- Sidebar Toggler (Sidebar) -->
