@@ -5,9 +5,7 @@
   <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
   <div class="row">
     <div class="col-lg">
-      <?= form_error('menu', '<div class="alert alert-danger" role="alert">
-            Please input your new menu !
-          </div>') ?>
+
       <?= $this->session->flashdata('message'); ?>
       <a href="<?= base_url() ?>Barang/formbarang" class="btn btn-primary mb-3"> Tambah Barang</a>
       <table class="table table-hover">
@@ -31,8 +29,8 @@
               <td><?= $b->harga_beli ?></td>
               <td><?= $b->harga_jual ?></td>
               <td>
-                <a href="<?= base_url('Barang/editbarang/') ?><?= $b->id ?>" class="badge btn btn-success">edit</a>
-                <a href="<?= base_url('Barang/delbarang/'); ?><?= $b->id; ?>" class="badge btn btn-danger">hapus</a>
+                <a href="<?= base_url('Barang/editbarang/') ?><?= $b->id ?>" class="btn btn-success">edit</a>
+                <a href="<?= base_url('Barang/delbarang/'); ?><?= $b->id; ?>" class="btn btn-danger">hapus</a>
 
               </td>
               <?php $no++ ?>
@@ -40,6 +38,7 @@
         <?php endforeach; ?>
         </tbody>
       </table>
+      
       <!-- Modal -->
       <?php foreach ($barang as $b2) : ?>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
