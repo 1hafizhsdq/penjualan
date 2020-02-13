@@ -1,0 +1,45 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
+  <div class="row">
+    <div class="col-lg">
+
+      <?= $this->session->flashdata('message'); ?>
+      <a href="<?= base_url() ?>Pengadaan/formpengadaan" class="btn btn-primary mb-3"> Tambah Pengadaan</a>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">No Pengadaan</th>
+            <th scope="col">Tgl pengadaan</th>
+            <th scope="col">Supplier</th>
+            <th scope="col">Total pengadaan</th>
+            <th scope="col">Tipe Pengadaan</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <?php $no = 1; ?>
+              <th scope="row"><?= $no ?></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td width="200">
+                <a href="<?= base_url('Barang/editbarang/') ?>" class="btn btn-success">Nota</a>
+                <a href="<?= base_url('Barang/delbarang/'); ?>" class="btn btn-primary">Rincian</a>
+              </td>
+              <?php $no++ ?>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    </div>
+  </div>
+<!-- /.container-fluid -->
+</div>

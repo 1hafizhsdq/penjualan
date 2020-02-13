@@ -38,7 +38,7 @@
         <?php endforeach; ?>
         </tbody>
       </table>
-      
+
       <!-- Modal -->
       <?php foreach ($barang as $b2) : ?>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -64,6 +64,7 @@
           </div>
         </div>
       <?php endforeach; ?>
+      
     </div>
   </div>
 
