@@ -41,7 +41,6 @@ class Barang extends CI_Controller
         $this->form_validation->set_rules('satuan', 'Satuan', 'required', ['required' => 'Satuan tidak boleh kosong']);
         if ($this->form_validation->run() == false) {
             $this->formbarang();
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data harus lengkap, silahkan ulangi</div>');
         } else {
             $data = array(
                 'nama_barang' => $this->input->post('namabar'),
