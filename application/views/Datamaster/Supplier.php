@@ -32,7 +32,7 @@
                             <td><?= $sp['Telp']; ?></td>
                             <td>
                                 <a href="" class="badge badge-pill badge-success">edit</a>
-                                <a href="" class="badge badge-pill badge-danger">delete</a>
+                                <a href="<?= base_url('Datamaster/delsupplier/'); ?><?= $sp['id']; ?>" class="badge btn btn-danger">hapus</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

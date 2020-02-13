@@ -57,6 +57,14 @@ class Datamaster extends CI_Controller
             redirect('Datamaster/Supplier');
         }
     }
+
+    public function delsupplier($id)
+    {
+        $this->Msupplier->delete($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert">Barang berhasil dihapus</div>');
+        redirect('Datamaster/Supplier');
+    }
+
     public function Barang()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
