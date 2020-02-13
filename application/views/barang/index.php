@@ -33,7 +33,6 @@
               <td>
                 <a href="<?= base_url('Barang/editbarang/') ?><?= $b->id ?>" class="badge btn btn-success">edit</a>
                 <a href="<?= base_url('Barang/delbarang/'); ?><?= $b->id; ?>" class="badge btn btn-danger">hapus</a>
-
               </td>
               <?php $no++ ?>
           </tr>

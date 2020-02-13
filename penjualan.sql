@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2020 at 11:32 PM
+-- Generation Time: Feb 13, 2020 at 08:58 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.14
 
@@ -137,7 +137,8 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (3, 2, 2),
 (4, 1, 3),
 (5, 1, 5),
-(6, 1, 7);
+(6, 1, 7),
+(7, 1, 8);
 
 -- --------------------------------------------------------
 
@@ -156,11 +157,12 @@ CREATE TABLE `user_menu` (
 --
 
 INSERT INTO `user_menu` (`id`, `menu`, `icon`) VALUES
-(1, 'administrator', 'fas fa-fw fa-user-cog'),
-(2, 'user', 'fas fas-fw fa-user-alt'),
-(3, 'menu', 'fas fa-fw fa-box'),
+(1, 'Administrator', 'fas fa-fw fa-user-cog'),
+(2, 'User', 'fas fas-fw fa-user-alt'),
+(3, 'Menu', 'fas fa-fw fa-box'),
 (5, 'Datamaster', 'fas fa-fw fa-folder'),
-(7, 'Dashboard', 'fas fa-fw fa-columns');
+(7, 'Dashboard', 'fas fa-fw fa-columns'),
+(8, 'Pengadaan Barang', 'fas fa-fw fa-exchange-alt');
 
 -- --------------------------------------------------------
 
@@ -207,7 +209,9 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `is_active`) VALUE
 (6, 2, 'Edit Profile', 'user/edit', 1),
 (7, 2, 'Change Password', 'user/changepassword', 1),
 (12, 5, 'Supplier', 'Datamaster/Supplier', 1),
-(13, 5, 'Barang', 'Barang', 1);
+(13, 5, 'Barang', 'Barang', 1),
+(14, 8, 'Retur', 'retur', 1),
+(15, 8, 'Pengadaan', 'Pengadaan', 1);
 
 -- --------------------------------------------------------
 
@@ -323,13 +327,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_role`
@@ -341,7 +345,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user_token`
