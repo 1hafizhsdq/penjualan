@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class user extends CI_Controller
+class User extends CI_Controller
 {
     public function __construct()
     {
@@ -63,7 +63,7 @@ class user extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             has been changed !
           </div>');
-            redirect('user');
+            redirect('User');
         }
     }
 
@@ -93,13 +93,13 @@ class user extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 Wrong current password! 
               </div>');
-                redirect('user/changepassword');
+                redirect('User/changepassword');
             } else {
                 if ($newpassword == $currentpassword) {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 dont same with current password!
               </div>');
-                    redirect('user/changepassword');
+                    redirect('User/changepassword');
                 } else {
                     $email = $this->session->userdata('email');
                     $pasword_hash = password_hash($newpassword, PASSWORD_DEFAULT);
@@ -109,7 +109,7 @@ class user extends CI_Controller
                     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Password
                     has been changed !
                   </div>');
-                    redirect('user/changepassword');
+                    redirect('User/changepassword');
                 }
             }
         }

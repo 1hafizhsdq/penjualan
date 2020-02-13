@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class menu extends CI_Controller
+class Menu extends CI_Controller
 {
     public function __construct()
     {
@@ -26,7 +26,7 @@ class menu extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             New Menu !
           </div>');
-            redirect('menu');
+            redirect('Menu');
         }
     }
 
@@ -62,7 +62,7 @@ class menu extends CI_Controller
             $this->session->set_flashdata('mes', '<div class="alert alert-success" role="alert">
             New Sub Menu !
           </div>');
-            redirect('menu/submenu');
+            redirect('Menu/submenu');
         }
     }
 }

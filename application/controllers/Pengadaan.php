@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
 class Pengadaan extends CI_Controller{
     function __construct(){
         parent::__construct();
@@ -12,14 +11,14 @@ class Pengadaan extends CI_Controller{
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Pengadaan';
         // $data['pengadaan'] = $this->Mpengadaan->getbarang();
-
+      
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('pengadaan/index.php', $data);
         $this->load->view('templates/footer', $data);
     }
-
+  
     public function formpengadaan(){
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Pengadaan';
@@ -41,3 +40,4 @@ class Pengadaan extends CI_Controller{
         );
     }
 }
+
