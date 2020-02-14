@@ -64,8 +64,7 @@
                         </div><br />
 
                         <div class="form-row d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary add_cart">Tambahkan barang</button>
-
+                            <button type="button" id="add_data" class="btn btn-primary add_cart">Tambahkan barang</button>
                         </div>
                     </form>
                 </div>
@@ -78,18 +77,17 @@
                 </div>
 
                 <div class="card-body tampildata">
-                    <form>
-                        <table class="table table-striped">
+                        <table class="table table-striped" id="cart">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nama Barang</th>
-                                    <th scope="col">Jumlah</th>
-                                    <th scope="col">Beli</th>
-                                    <th scope="col">Aksi</th>
+                                    <th>Nama<br>Barang</th>
+                                    <th>Qty</th>
+                                    <th>Harga<br>beli</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="detail_cart">
+
                             </tbody>
                 </div>
             </div>
@@ -100,29 +98,63 @@
 
 <script src="<?= base_url('assets'); ?> /vendor/jquery/jquery.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('.add_cart').click(function() {
-            var id = $('.id').val();
-            var nama_barang = $('.nama_barang').val();
-            var jumlah = $('.jumlah').val();
-            var harga_beli = $('.harga_beli').val();
+    // $(document).ready(function() {
+    //     $('.add_cart').click(function() {
+    //         var id = $('.id').val();
+    //         var nama_barang = $('.nama_barang').val();
+    //         var jumlah = $('.jumlah').val();
+    //         var harga_beli = $('.harga_beli').val();
 
-            $.ajax({
-                url: "<?= base_url('Pengadaan/add_to_cart'); ?>",
-                method: "POST",
-                data: {
-                    id: id,
-                    nama_barang: nama_barang,
-                    jumlah: jumlah,
-                    harga_beli: harga_beli
-                },
-                success: function(data) {
-                    $('#detail_cart').html(data);
-                    // alert('berhasil');
-                }
-            });
+    //         $.ajax({
+    //             url: "<?= base_url('Pengadaan/add_to_cart'); ?>",
+    //             method: "POST",
+    //             data: {
+    //                 id: id,
+    //                 nama_barang: nama_barang,
+    //                 jumlah: jumlah,
+    //                 harga_beli: harga_beli
+    //             },
+    //             success: function(data) {
+    //                 $('#detail_cart').html(data);
+    //                 // alert('berhasil');
+    //             }
+    //         });
+    //     });
+    //     // Load shopping cart
+    //     $('#detail_cart').load("<?= base_url('Pengadaan/load_cart'); ?>");
+    // });
+
+    $(function() {
+        var set_number = function(){
+            var table_len = $('#cart tbody tr').length;
+            $('#no').val(table_len);
+        }
+        set_number();
+
+        $('#add_data').click(function(p){
+            p.preventDefault();
+
+            var idbarang = $('#id').val();
+            var nama = $('#nama_barang').val();
+            var jumlah = $('#jumlah').val();
+            var hargabeli = $('#harga_beli').val();
+
+            $('#detail_cart').append(
+                '<tr>'+
+                    '<td>'+nama+'</td>'+
+                    '<td>'+jumlah+'</td>'+
+                    '<td>'+hargabeli+'</td>'+
+                    '<td width="50"><button id="del" class="badge badge-danger">X</button></td>'+
+                '</tr>'
+            );
+
+            $('#id').val();
+            $('#nama_barang').val();
+            $('#jumlah').val();
+            $('#harga_beli').val();
         });
-        // Load shopping cart
-        $('#detail_cart').load("<?= base_url('Pengadaan/load_cart'); ?>");
+        $(".del").live('click', function(){
+            $(this).parent().parent().remove();
+        });
     });
 </script>
