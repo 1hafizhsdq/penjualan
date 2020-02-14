@@ -53,5 +53,43 @@ class Pengadaan extends CI_Controller{
     public function getstok(){
         
     }
+
+    public function add_to_cart(){
+        $data = array(
+            'idbarang' => $this->input->post('idbarang'),
+            // 'nama' => $this->input->post('namabar'),
+            'stok' => $this->input->post('jumlah')
+        );
+        $this->cart->insert($data);
+    }
+
+    public function show_cart(){
+        $output = '';
+        $no = 0;
+        foreach ($this->cart->contents() as $items){
+            $no++;
+            $output .='
+            <tr>
+                    <td>'.$items['idbarang'].'</td>
+                    <td>'.$items['jumlah'].'</td>
+                    <td><button type="button" id="'.$items['rowid'].'" class="hapus_cart btn btn-danger btn-xs">Batal</button></td>
+                </tr>
+            ';
+        }
+        return $output;
+    }
+
+    function load_cart(){ //load data cart
+        echo $this->show_cart();
+    }
+ 
+    function hapus_cart(){ //fungsi untuk menghapus item cart
+        $data = array(
+            'rowid' => $this->input->post('row_id'), 
+            'jumlah' => 0, 
+        );
+        $this->cart->update($data);
+        echo $this->show_cart();
+    }
 }
 

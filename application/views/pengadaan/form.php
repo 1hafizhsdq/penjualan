@@ -18,7 +18,7 @@
                             </div>
                             <div class="form-group col-md-4 mb-sm-2">
                                 <label for="inputCity">Tanggal Pengadaan</label>
-                                <input type="date" class="form-control" id="no_pengadaan" name="no_pengadaan">
+                                <input type="date" class="form-control" id="tgl" name="tgl">
                             </div>
                         </div>
                         <div class="form-row d-flex justify-content-end">
@@ -43,8 +43,8 @@
                         <div class="form-row d-flex justify-content-end" id="hitungstok">
                             <div class="form-group col-md-4 mb-sm-2">
                                 <label for="inputCity">Nama Barang</label>
-                                <select class="custom-select mr-sm-2" id="nama_barang" name="nama_barang">
-                                    <option selected>Pilih</option>
+                                <select class="custom-select mr-sm-2" id="idbarang" name="idbarang">
+                                    <option selected>-- Pilih Barang --</option>
                                     <?php foreach($barang as $b) : ?>
                                     <option value="<?= $b->id ?>"><?= $b->nama_barang ?></option>
                                     <?php endforeach ; ?>
@@ -67,7 +67,7 @@
                         <!-- </div> -->
 
                         <div class="form-row d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary btn-user">Tambahkan barang</button>
+                            <button type="submit" class="btn btn-primary add_cart">Tambahkan barang</button>
                         </div>
                     </form>
                 </div>
@@ -85,19 +85,11 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nama Barang</th>
-                                    <th scope="col">Jumlah</th>
                                     <th scope="col">Stok</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td><button type="submit" class="btn btn-danger btn-sm">hapus</button></td>
-                                </tr>
+                            <tbody id="detail_cart">
 
                             </tbody>
                         </table>
@@ -111,18 +103,26 @@
     </div>
 </div>
 
+<script src="<?= base_url('assets'); ?> /vendor/jquery/jquery.min.js"></script>
 <script type="text/javascript">
-    let stok = $('#stok');
+    $(document).ready(function(){
+        $('.add_cart').click(function(){
+            var id = $('.idbarang').val();
+            // var nama = $('.namabar').val();
+            var jumlah = $('.jumlah').val();
+            var serializeData = $('#hitungstok').serialize();
 
-    $(document).on('change', '#nama_barang', function() {
-        let url = '<?= base_url('Stok/getstok/'); ?>' + this.value;
-        $.getJSON(url, function(data) {
-            stok.val(data.stok);
+            $.ajax({
+                url : "<?= base_url('Pengadaan/add_to_cart');?>",
+                method : "POST",
+                data : serializeData,
+                success: function(data){
+                    $('#detail_cart').html(data);
+                    // alert('berhasil');
+                }
+            });
         });
-    });
-
-    $(document).on('keyup', '#jumlah', function() {
-        let totalStok = parseInt(stok.val()) + parseInt(this.value);
-        stok.val(Number(totalStok));
+         // Load shopping cart
+         $('#detail_cart').load("<?= base_url('Pengadaan/load_cart');?>");
     });
 </script>
