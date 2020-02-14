@@ -44,6 +44,8 @@ class Pengadaan extends CI_Controller
         $this->load->view('pengadaan/form.php', $data);
         $this->load->view('templates/footer', $data);
     }
+
+    // menambhkan pengadaan (belum jadi)
     public function tambah()
     {
         $data =
@@ -57,53 +59,57 @@ class Pengadaan extends CI_Controller
 
         $sql = $this->db->insert('pengadaan', $data);
     }
+    // menambhkan pengadaan (belum jadi)
 
-    public function get_barang()
+    // untuk menambahkan keranjang
+    public function add_to_cart()
     {
-        $nama_barang = $this->input->post('nama_barang');
-        $data = $this->Mpengadaan->caribarang($nama_barang);
-        echo json_encode($data);
-    }
-<<<<<<< HEAD
-
-    public function add_to_cart(){
         $data = array(
-            'idbarang' => $this->input->post('idbarang'),
-            // 'nama' => $this->input->post('namabar'),
-            'stok' => $this->input->post('jumlah')
+            'id' => $this->input->post('id'),
+            'nama' => $this->input->post('nama_barang'),
+            'harga_beli' => $this->input->post('harga_beli'),
+            'jumlah' => $this->input->post('jumlah')
         );
         $this->cart->insert($data);
+        echo $this->show_cart();
     }
-
-    public function show_cart(){
+    // untuk menambhakan keranjang
+    // menampilkan data barang
+    public function show_cart()
+    {
         $output = '';
         $no = 0;
-        foreach ($this->cart->contents() as $items){
+        foreach ($this->cart->contents() as $items) {
             $no++;
-            $output .='
+            $output .= '
             <tr>
-                    <td>'.$items['idbarang'].'</td>
-                    <td>'.$items['jumlah'].'</td>
-                    <td><button type="button" id="'.$items['rowid'].'" class="hapus_cart btn btn-danger btn-xs">Batal</button></td>
-                </tr>
-            ';
+            <td>' . $items['nama_barang'] . '</td>
+            <td>' . $items['jumlah'] . '</td>
+            <td>' . $items['harga_beli'] . '</td>
+            
+                    <td><button type="button" id="' . $items['rowid'] . '" class="hapus_cart btn btn-danger btn-xs">Batal</button></td>
+                    </tr>
+                    ';
         }
         return $output;
     }
+    // menampilkan data barang
 
-    function load_cart(){ //load data cart
+    function load_cart()
+    { //load data cart
         echo $this->show_cart();
     }
- 
-    function hapus_cart(){ //fungsi untuk menghapus item cart
+
+    function hapus_cart()
+    { //fungsi untuk menghapus item cart
         $data = array(
-            'rowid' => $this->input->post('row_id'), 
-            'jumlah' => 0, 
+            'rowid' => $this->input->post('row_id'),
+            'jumlah' => 0,
         );
         $this->cart->update($data);
         echo $this->show_cart();
     }
-
+    // mengambil nama_barang dan cocokan untuk autocomplete
     public function get_auto($nama_barang)
     {
         if (empty($nama_barang)) {
@@ -115,4 +121,5 @@ class Pengadaan extends CI_Controller
         echo json_encode($result);
         exit;
     }
+    // mengambil nama_barang dan cocokan untuk autocomplete
 }//end 

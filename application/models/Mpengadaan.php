@@ -11,7 +11,7 @@ class Mpengadaan extends CI_Model
         return $this->db->get($table)->row_array()[$field];
     }
 
-
+    // caribarang untuk autoload/autocomplete/autofill
     public function caribarang($nama_barang)
     {
         $query = $this->db
@@ -24,6 +24,9 @@ class Mpengadaan extends CI_Model
 
         return $query->result_array();
     }
+    // caribarang untuk autoload/autocomplete/autofill
+
+    // upload image nota
     public function uploadImage()
     {
         //$namaFile = "blog".time();
@@ -39,4 +42,17 @@ class Mpengadaan extends CI_Model
         }
         return "default.jpg";
     }
+    // upload image nota
+
+    // public function selectnama($nama_barang)
+    // {
+    //     $query = $this->db
+    //         ->select('barang.id')
+    //         ->from('barang')
+    //         ->where("barang.nama_barang LIKE '$nama_barang%'")
+    //         ->limit(1)
+    //         ->get();
+
+    //     return $query->row_array();
+    // }
 }

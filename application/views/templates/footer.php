@@ -118,6 +118,7 @@
                     var data = selectedData.item.data;
 
                     $('#stok').val(data.stok);
+                    $('#id').val(data.id);
                 }
 
             }
@@ -125,25 +126,6 @@
     });
 </script>
 
-<!-- <script type="text/javascript">
-    $(document).ready(function() {
-        $('#nama_barang').autocomplete({
-            source: "<?= base_url('Pengadaan/get_auto/?'); ?>",
-            select: function(event, ui) {
-                $('[name="nama_barang"]').val(ui.item.label);
-                $('[name="harga_beli"]').val(ui.item.description);
-
-            },
-            response: function(event, ui) {
-                if (ui.content.length === 0) {
-                    console.log('No results loaded!');
-                } else {
-                    console.log('success!');
-                }
-            },
-        });
-    });
-</script> -->
 </body>
 
 </html>

@@ -43,22 +43,24 @@
                         <div class="form-row d-flex justify-content-end" id="hitungstok">
                             <div class="form-group col-md-4 mb-sm-2">
                                 <label for="inputCity">Nama Barang</label>
-                                <select class="custom-select mr-sm-2" id="idbarang" name="idbarang">
-                                    <option selected>-- Pilih Barang --</option>
-                                    <?php foreach($barang as $b) : ?>
-                                    <option value="<?= $b->id ?>"><?= $b->nama_barang ?></option>
-                                    <?php endforeach ; ?>
-                                </select>
                                 <input type="text" class="form-control" id="nama_barang" name="nama_barang">
                             </div><br />
-                            <div class="form-group col-md-4 mb-sm-2">
-                                <label for="inputCity">Jumlah Masuk</label>
+                            <div class="form-group col-md-2 mb-sm-2">
+                                <label for="inputCity">Qty</label>
                                 <input type="int" class="form-control" id="jumlah" name="jumlah">
-                            </div><br />
+                            </div>
+                            <br />
                             <div class="form-group col-md-4 mb-sm-2">
+                                <label for="inputCity">Harga Beli</label>
+                                <input type="text" class="form-control" id="harga_beli" name="harga_beli">
+                            </div>
+                            <br />
+                            <input type="hidden" class="form-control" id="id" name="id">
+                            <div class="form-group col-md-2 mb-sm-2">
                                 <label for="inputCity">Stok Barang</label>
-                                <input type="text" class="form-control" id="stok" name="stok">
-                            </div><br />
+                                <input type="text" class="form-control" id="stok" name="stok" readonly>
+                            </div>
+                            <br />
                         </div><br />
 
                         <div class="form-row d-flex justify-content-center">
@@ -82,7 +84,8 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nama Barang</th>
-                                    <th scope="col">Stok</th>
+                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Beli</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -97,25 +100,29 @@
 
 <script src="<?= base_url('assets'); ?> /vendor/jquery/jquery.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('.add_cart').click(function(){
-            var id = $('.idbarang').val();
-            // var nama = $('.namabar').val();
+    $(document).ready(function() {
+        $('.add_cart').click(function() {
+            var id = $('.id').val();
+            var nama_barang = $('.nama_barang').val();
             var jumlah = $('.jumlah').val();
-            var serializeData = $('#hitungstok').serialize();
+            var harga_beli = $('.harga_beli').val();
 
             $.ajax({
-                url : "<?= base_url('Pengadaan/add_to_cart');?>",
-                method : "POST",
-                data : serializeData,
-                success: function(data){
+                url: "<?= base_url('Pengadaan/add_to_cart'); ?>",
+                method: "POST",
+                data: {
+                    id: id,
+                    nama_barang: nama_barang,
+                    jumlah: jumlah,
+                    harga_beli: harga_beli
+                },
+                success: function(data) {
                     $('#detail_cart').html(data);
                     // alert('berhasil');
                 }
             });
         });
-         // Load shopping cart
-         $('#detail_cart').load("<?= base_url('Pengadaan/load_cart');?>");
+        // Load shopping cart
+        $('#detail_cart').load("<?= base_url('Pengadaan/load_cart'); ?>");
     });
 </script>
-
