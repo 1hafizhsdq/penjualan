@@ -9,7 +9,7 @@
                     <h6 class="m-0 font-weight-bold text-primary mt-3">Form pengadaan</h6>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form method="post">
                         <div class="form-row d-flex justify-content-between">
 
                             <div class="form-group col-md-5 mb-sm-2">
@@ -18,8 +18,9 @@
                             </div>
                             <div class="form-group col-md-4 mb-sm-2">
                                 <label for="inputCity">Tanggal Pengadaan</label>
-                                <input type="date" class="form-control" id="tgl" name="tgl">
+                                <input type="date" class="form-control" id="tanggal" name="tanggal">
                             </div>
+                            <input type="hidden" class="form-control" id="total" name="total" value="<?= '0' ?>">
                         </div>
                         <div class="form-row d-flex justify-content-end">
 
@@ -27,14 +28,13 @@
                                 <label for="inputCity">Supplier</label>
                                 <select class="custom-select">
                                     <option selected>-- Pilih Supplier --</option>
-                                    <?php foreach($supplier as $s) : ?>
-                                    <option value="<?= $s['id'] ?>"><?= $s['Nama'] ?></option>
-                                    <?php endforeach ; ?>
+                                    <?php foreach ($supplier as $s) : ?>
+                                        <option value="<?= $s['id'] ?>"><?= $s['Nama'] ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
 
                         </div>
-
                         <label for="inputCity">Nota Pengadaan</label>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="image" name="image">
@@ -49,6 +49,7 @@
                                     <option value="<?= $b->id ?>"><?= $b->nama_barang ?></option>
                                     <?php endforeach ; ?>
                                 </select>
+                                <input type="text" class="form-control" id="nama_barang" name="nama_barang">
                             </div><br />
                             <div class="form-group col-md-4 mb-sm-2">
                                 <label for="inputCity">Jumlah Masuk</label>
@@ -56,18 +57,13 @@
                             </div><br />
                             <div class="form-group col-md-4 mb-sm-2">
                                 <label for="inputCity">Stok Barang</label>
-                                <input type="int" class="form-control" id="stok" name="stok" readonly="on" value="">
+                                <input type="text" class="form-control" id="stok" name="stok">
                             </div><br />
                         </div><br />
-                        <!-- <div class="form-row d-flex justify-content-end"> -->
-                            <!-- <div class="form-group col-md-6"> -->
-                                <!-- <img src="" class="rounded float-left" alt=""> -->
-
-                            <!-- </div> -->
-                        <!-- </div> -->
 
                         <div class="form-row d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary add_cart">Tambahkan barang</button>
+
                         </div>
                     </form>
                 </div>
@@ -78,7 +74,8 @@
                 <div class="card-header">
                     <h6 class="m-0 font-weight-bold text-primary mt-3">Keranjang</h6>
                 </div>
-                <div class="card-body">
+
+                <div class="card-body tampildata">
                     <form>
                         <table class="table table-striped">
                             <thead>
@@ -90,17 +87,12 @@
                                 </tr>
                             </thead>
                             <tbody id="detail_cart">
-
                             </tbody>
-                        </table>
-                        <div class="form-row d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary btn-user">Pengadaan</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <script src="<?= base_url('assets'); ?> /vendor/jquery/jquery.min.js"></script>
@@ -126,3 +118,4 @@
          $('#detail_cart').load("<?= base_url('Pengadaan/load_cart');?>");
     });
 </script>
+

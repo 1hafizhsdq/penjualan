@@ -1,7 +1,7 @@
 <!-- Footer -->
 
 <!-- End of Footer -->
-
+<input type="hidden" id="base_path" value="<?= base_url(); ?>" />
 </div>
 <!-- End of Content Wrapper -->
 
@@ -32,15 +32,18 @@
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript-->
 <script src="<?= base_url('assets'); ?> /vendor/jquery/jquery.min.js"></script>
 <script src="<?= base_url('assets'); ?> /vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <!-- Core plugin JavaScript-->
 <script src="<?= base_url('assets'); ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="<?= base_url('assets'); ?>/js/sb-admin-2.min.js"></script>
+
+
 <script>
     function SetActiveDiv(el) {
 
@@ -71,6 +74,76 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var basePath = $("#base_path").val();
+        $("#nama_barang").autocomplete({
+            source: function(request, cb) {
+                console.log(request);
+
+                $.ajax({
+                    url: basePath + 'Pengadaan/get_auto/' + request.term,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(res) {
+                        var result;
+                        result = [{
+                            label: 'There is no matching record found for ' + request.term,
+                            value: ''
+                        }];
+
+                        console.log("Before format", res);
+
+
+                        if (res.length) {
+                            result = $.map(res, function(obj) {
+                                return {
+                                    label: obj.nama_barang,
+                                    value: obj.nama_barang,
+                                    data: obj
+                                };
+                            });
+                        }
+
+                        console.log("formatted response", result);
+                        cb(result);
+                    }
+                });
+            },
+            select: function(event, selectedData) {
+                console.log(selectedData);
+
+                if (selectedData && selectedData.item && selectedData.item.data) {
+                    var data = selectedData.item.data;
+
+                    $('#stok').val(data.stok);
+                }
+
+            }
+        });
+    });
+</script>
+
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+        $('#nama_barang').autocomplete({
+            source: "<?= base_url('Pengadaan/get_auto/?'); ?>",
+            select: function(event, ui) {
+                $('[name="nama_barang"]').val(ui.item.label);
+                $('[name="harga_beli"]').val(ui.item.description);
+
+            },
+            response: function(event, ui) {
+                if (ui.content.length === 0) {
+                    console.log('No results loaded!');
+                } else {
+                    console.log('success!');
+                }
+            },
+        });
+    });
+</script> -->
 </body>
 
 </html>
