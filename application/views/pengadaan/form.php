@@ -80,6 +80,8 @@
                             <div class="form-group col-md-6 mb-sm-2">
                                 <label for="inputCity">Tanggal Pengadaan</label>
                                 <input type="date" class="form-control" id="tanggal" name="tanggal">
+                                <?= form_error('tanggal','<small class="text-danger pl-3">','</small>') ?>
+                                <?= set_value('tanggal') ?>
                             </div>
                             <input type="hidden" class="form-control" id="total" name="total" value="<?= $total[0]['sum(subtotal)'] ?>">
                         </div>
@@ -93,6 +95,8 @@
                                         <option value="<?= $s['id'] ?>"><?= $s['Nama'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                                <?= form_error('sup','<small class="text-danger pl-3">','</small>') ?>
+                                <?= set_value('sup') ?>
                             </div>
 
                         </div>
@@ -100,7 +104,9 @@
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="nota" name="nota">
                             <label class="custom-file-label" for="image">Upload Nota</label>
-                            <small class="text-danger pl-3">Max size 3MB. Format file jpg,jpeg,png</small>
+                            <small class="">Max size 3MB. Format file jpg,jpeg,png</small>
+                            <?= form_error('nota','<small class="text-danger pl-3">','</small>') ?>
+                            <?= set_value('nota') ?>
                         </div><br /><br>
                         <div class="form-row d-flex justify-content-center">
                             <button type="submit" id="save" class="btn btn-primary">Submit Pengadaan</button>    

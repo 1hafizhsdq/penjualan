@@ -71,6 +71,15 @@ class Pengadaan extends CI_Controller
     }
 
     public function submit(){
+        $this->form_validation->set_rules('tanggal', 'Tanggal', 'required', ['required' => 'Tanggal tidak boleh kosong']);
+        $this->form_validation->set_rules('sup', 'Supplier', 'required', ['required' => 'Supplier tidak boleh kosong']);
+        $this->form_validation->set_rules('nota', 'Nota', 'required', ['required' => 'Nota tidak boleh kosong']);
+        if ($this->form_validation->run() == false) {
+            $this->formpengadaan();
+        } else {
+            // if(@$_FILES['nota']['name'] != NULL){
+
+            // }
             $data = array(
                 'kodepengadaan' => $this->input->post('no_pengadaan'),
                 'tgl' => $this->input->post('tanggal'),
@@ -80,6 +89,7 @@ class Pengadaan extends CI_Controller
             $tambah = $this->Mpengadaan->savepengadaan($data);
             $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert">Pengadaan Berhasil</div>');
             redirect('Pengadaan');
+        }
     }
 
 }//end 
