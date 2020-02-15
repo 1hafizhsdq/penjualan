@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2020 at 11:30 AM
+-- Generation Time: Feb 15, 2020 at 04:02 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.14
 
@@ -51,12 +51,22 @@ INSERT INTO `barang` (`id`, `nama_barang`, `harga_jual`, `harga_beli`, `satuan`)
 --
 
 CREATE TABLE `detailpengadaan` (
-  `idpengadaan` int(11) NOT NULL,
-  `idbarang` int(11) NOT NULL,
-  `hargabeli` int(11) NOT NULL,
-  `jumlah` int(11) NOT NULL,
-  `subtotal` int(11) NOT NULL
+  `idpengadaan` int(11) DEFAULT NULL,
+  `idbarang` int(11) DEFAULT NULL,
+  `hargabeli` int(11) DEFAULT NULL,
+  `jumlah` int(11) DEFAULT NULL,
+  `subtotal` int(11) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detailpengadaan`
+--
+
+INSERT INTO `detailpengadaan` (`idpengadaan`, `idbarang`, `hargabeli`, `jumlah`, `subtotal`, `status`) VALUES
+(7, 1, 10000, 20, 200000, 1),
+(8, 1, 10000, 123, 1230000, 1),
+(9, 1, 10000, 123, 1230000, 1);
 
 -- --------------------------------------------------------
 
@@ -97,18 +107,12 @@ CREATE TABLE `pengadaan` (
 --
 
 INSERT INTO `pengadaan` (`id`, `kodepengadaan`, `tgl`, `total`, `fotonota`) VALUES
-(28, 'PG20021300001', '2020-02-13', 0, '1'),
-(29, 'PG20021400001', '0000-00-00', 0, '1'),
-(30, 'PG20021400001', '0000-00-00', 0, '1'),
-(31, 'PG20021400001', '0000-00-00', 0, '1'),
-(32, 'PG20021400001', '0000-00-00', 0, '1'),
-(33, NULL, NULL, 0, 'default.jpg'),
-(34, NULL, NULL, 0, 'default.jpg'),
-(35, NULL, NULL, 0, 'default.jpg'),
-(36, NULL, NULL, 0, 'default.jpg'),
-(37, NULL, NULL, 0, 'default.jpg'),
-(38, NULL, '2020-02-14', 0, 'default.jpg'),
-(39, 'PG20021400001', '2020-02-12', 0, 'default.jpg');
+(4, 'PG20021504', '2020-02-15', 0, 'default.jpg'),
+(5, 'PG20021504', '2020-02-15', 0, 'default.jpg'),
+(6, 'PG20021506', '2020-02-15', 12340000, 'default.jpg'),
+(7, 'PG20021507', '2020-02-15', 200000, 'default.jpg'),
+(8, 'PG20021508', '0000-00-00', 1230000, 'default.jpg'),
+(9, 'PG20021509', '2020-02-15', 1230000, 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -119,16 +123,20 @@ INSERT INTO `pengadaan` (`id`, `kodepengadaan`, `tgl`, `total`, `fotonota`) VALU
 CREATE TABLE `stok` (
   `id` int(11) NOT NULL,
   `idbarang` int(11) NOT NULL,
-  `tglstok` date NOT NULL,
-  `stok` int(11) NOT NULL
+  `tglstok` date DEFAULT NULL,
+  `stok` int(11) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `stok`
 --
 
-INSERT INTO `stok` (`id`, `idbarang`, `tglstok`, `stok`) VALUES
-(1, 1, '0000-00-00', 0);
+INSERT INTO `stok` (`id`, `idbarang`, `tglstok`, `stok`, `status`) VALUES
+(1, 1, '2020-02-12', 0, 1),
+(13, 1, '2020-02-15', 20, 1),
+(14, 1, '0000-00-00', 123, 1),
+(15, 1, '2020-02-15', 123, 1);
 
 -- --------------------------------------------------------
 
@@ -386,13 +394,13 @@ ALTER TABLE `kategori_barang`
 -- AUTO_INCREMENT for table `pengadaan`
 --
 ALTER TABLE `pengadaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `stok`
 --
 ALTER TABLE `stok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `supplier`
