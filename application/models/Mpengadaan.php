@@ -13,6 +13,13 @@ class Mpengadaan extends CI_Model
 
         return $query->result();
     }
+    
+    public function getpengadaanbydate(){
+        $awal = $this->input->post('tglmulai');
+        $akhir = $this->input->post('tglselesai');
+        $data = $this->db->query("select pengadaan.*,supplier.Nama from pengadaan join supplier on pengadaan.idsup=supplier.id  where tgl between '$awal' and '$akhir'");
+        return $data->result();
+    }
 
     public function getdetail($id){
         $query = $this->db

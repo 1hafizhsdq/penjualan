@@ -125,6 +125,7 @@
       type: "GET",
       dataType: "JSON",
       success: function(data){
+
         $('.bd-example-modal-lg').modal('show');
       },
       error : function(jqXHR, textstatus, errorthrown){

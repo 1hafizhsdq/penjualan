@@ -114,4 +114,32 @@ class Pengadaan extends CI_Controller
         $data = $this->Mpengadaan->getdetail($id);
         echo json_encode($data);
     }
+
+    public function laporan(){
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Pengadaan';
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pengadaan/laporan.php', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function cetaklaporan(){
+        $this->load->library('dompdf_gen');
+        $awal = $this->input->post('tglmulai');
+        $akhir = $this->input->post('tglselesai');
+        $data['laporan'] = $this->Mpengadaan->getpengadaanbydate();
+
+        $this->load->view('pengadaan/cetakpengadaan',$data);
+
+        $paper_size = 'A4';
+        $orientation = 'potrait';
+        $html = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size,$orientation);
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream("Laporan Pengadaan".$awal." sampai ".$akhir.".pdf", array("attachment" =>0));
+    }
 }//end 

@@ -4,9 +4,7 @@
             <table>
                 <tr>
                     <th>Kode Pengadaan</th>
-                    <?php foreach($detail as $d): ?>
-                    <td id="kodepengadaan">: <?= $d->kodepengadaan ?></td>
-                    <?php endforeach; ?>
+                    <td id="kodepengadaan">: </td>
                 </tr>
                 <tr>
                     <th>Tanggal</th>
