@@ -70,6 +70,7 @@
                     <h6 class="m-0 font-weight-bold text-primary mt-3">Form pengadaan</h6>
                 </div>
                 <div class="card-body">
+                    <?= form_open_multipart('Pengadaan/submit') ?>
                     <form action="<?= base_url('Pengadaan/submit') ?>" method="post" enctype="multipart/form-data">
                         <div class="form-row d-flex justify-content-between">
                         <input type="hidden" id="base_path" value="<?= base_url(); ?>" />
@@ -79,9 +80,8 @@
                             </div>
                             <div class="form-group col-md-6 mb-sm-2">
                                 <label for="inputCity">Tanggal Pengadaan</label>
-                                <input type="date" class="form-control" id="tanggal" name="tanggal">
+                                <input type="date" class="form-control" id="tanggal" name="tanggal" value="<?= set_value('tanggal') ?>">
                                 <?= form_error('tanggal','<small class="text-danger pl-3">','</small>') ?>
-                                <?= set_value('tanggal') ?>
                             </div>
                             <input type="hidden" class="form-control" id="total" name="total" value="<?= $total[0]['sum(subtotal)'] ?>">
                         </div>
@@ -89,24 +89,22 @@
 
                             <div class="form-group col-md-12 mb-sm-2">
                                 <label for="inputCity">Supplier</label>
-                                <select class="custom-select" name="sup">
-                                    <option selected>-- Pilih Supplier --</option>
+                                <select class="custom-select" name="sup" >
+                                    <option value="<?= set_value('sup') ?>" selected>-- Pilih Supplier --</option>
                                     <?php foreach ($supplier as $s) : ?>
                                         <option value="<?= $s['id'] ?>"><?= $s['Nama'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <?= form_error('sup','<small class="text-danger pl-3">','</small>') ?>
-                                <?= set_value('sup') ?>
                             </div>
 
                         </div>
                         <label for="inputCity">Nota Pengadaan</label>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="nota" name="nota">
+                            <input type="file" class="custom-file-input" id="nota" name="nota" value="<?= set_value('nota') ?>">
                             <label class="custom-file-label" for="image">Upload Nota</label>
                             <small class="">Max size 3MB. Format file jpg,jpeg,png</small>
                             <?= form_error('nota','<small class="text-danger pl-3">','</small>') ?>
-                            <?= set_value('nota') ?>
                         </div><br /><br>
                         <div class="form-row d-flex justify-content-center">
                             <button type="submit" id="save" class="btn btn-primary">Submit Pengadaan</button>    

@@ -2,6 +2,31 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class Mpengadaan extends CI_Model
 {
+    public function getpengadaan(){
+        $query = $this->db
+        ->select('pengadaan.*,supplier.Nama')
+        ->from('pengadaan')
+        ->join('supplier', 'pengadaan.idsup=supplier.id', 'inner')
+        ->order_by('kodepengadaan', 'DESC')
+        ->limit(25)
+        ->get();
+
+        return $query->result();
+    }
+
+    public function getdetail($id){
+        $query = $this->db
+            ->select('p.*,s.Nama,s.Alamat,s.Telp,b.nama_barang as namabar,b.satuan,dp.hargabeli,dp.jumlah,dp.subtotal')
+            ->from('pengadaan p')
+            ->join('supplier s', 'p.idsup=s.id')
+            ->join('detailpengadaan dp', 'p.id=dp.idpengadaan')
+            ->join('barang b', 'dp.idbarang=b.id')
+            ->where('p.id',$id)
+            ->get();
+
+        return $query->result();
+    }
+
     public function getmaxid()
     {
         $query = $this->db->query("select max(id) from pengadaan");
@@ -59,21 +84,6 @@ class Mpengadaan extends CI_Model
     public function counttotal(){
         $query = "SELECT sum(subtotal) FROM `detailpengadaan` WHERE idpengadaan=0 and status=0";
         return $this->db->query($query)->result_array();
-    }
-
-    public function uploadImage(){
-        $config['upload_path']          = './nota/pengadaan/';
-        $config['allowed_types']        = 'gif|jpg|png';
-        // $config['file_name']            = 'default';
-        // $config['file_name']            = $nama;
-        $config['overwrite']            = true;
-        $config['max_size']             = 3072;
-        $this->load->library('upload', $config);
-
-        if ($this->upload->do_upload('fotonota')) {
-            return $this->upload->data('file_name');
-        }
-        return "default.jpg";
     }
 
     public function savepengadaan($data){

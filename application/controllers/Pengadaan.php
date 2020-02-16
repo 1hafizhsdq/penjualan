@@ -14,6 +14,8 @@ class Pengadaan extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Pengadaan';
+        $data['pengadaan'] = $this->Mpengadaan->getpengadaan();
+        // $data['detail'] = $this->showdetail();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -34,7 +36,6 @@ class Pengadaan extends CI_Controller
             $data['barang'] = $this->Mbarang->getbarang();
             $data['supplier'] = $this->Msupplier->getsupplier();
             $data['total'] = $this->Mpengadaan->counttotal();
-            // print_r($data['total']);die;
     
             //get kode transaksi
             $kode = 'PG' . date('ymd');
@@ -73,23 +74,44 @@ class Pengadaan extends CI_Controller
     public function submit(){
         $this->form_validation->set_rules('tanggal', 'Tanggal', 'required', ['required' => 'Tanggal tidak boleh kosong']);
         $this->form_validation->set_rules('sup', 'Supplier', 'required', ['required' => 'Supplier tidak boleh kosong']);
-        $this->form_validation->set_rules('nota', 'Nota', 'required', ['required' => 'Nota tidak boleh kosong']);
+        // $this->form_validation->set_rules('nota', 'Nota', 'required', ['required' => 'Nota tidak boleh kosong']);
         if ($this->form_validation->run() == false) {
             $this->formpengadaan();
         } else {
-            // if(@$_FILES['nota']['name'] != NULL){
-
-            // }
             $data = array(
                 'kodepengadaan' => $this->input->post('no_pengadaan'),
                 'tgl' => $this->input->post('tanggal'),
+                'idsup' => $this->input->post('sup'),
                 'total' => $this->input->post('total'),
-                'fotonota' => $this->Mpengadaan->uploadImage()
+                'fotonota' => $this->input->post('no_pengadaan')
             );
             $tambah = $this->Mpengadaan->savepengadaan($data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert">Pengadaan Berhasil</div>');
-            redirect('Pengadaan');
+
+            $uploadfiles = $_FILES['nota']['name'];
+            
+            if($uploadfiles){
+                $config['allowed_types']        = 'jpeg|jpg|png';
+                $config['max_size']             = '3072';
+                $config['file_name']            = $this->input->post('no_pengadaan');
+                $config['upload_path']          = './nota/pengadaan/';
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('nota')){
+                    $new = $this->upload->data('file_name');
+                    $this->db->where('kodepengadaan', $this->input->post('no_pengadaan'));
+                    $this->db->set('fotonota', $new);
+                    $this->db->update('pengadaan');
+                    $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert">Pengadaan Berhasil</div>');
+                    redirect('Pengadaan');
+                } else{
+                    echo $this->upload->display_errors();
+                }
+            }
         }
     }
 
+    public function showdetail($id){
+        $data = $this->Mpengadaan->getdetail($id);
+        echo json_encode($data);
+    }
 }//end 
