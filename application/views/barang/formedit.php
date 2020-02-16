@@ -25,12 +25,6 @@
             <?= form_error('hrgjual','<small class="text-danger pl-3">','</small>') ?>
             <?= set_value('hrgjual') ?>
         </div>
-        <div class="form-group">
-            <label for="hrgbeli">Harga Beli</label>
-            <input type="text" class="form-control" id="hrgbeli" name="hrgbeli" placeholder="Rp." value="<?= $db->harga_beli ?>">
-            <?= form_error('hrgbeli','<small class="text-danger pl-3">','</small>') ?>
-            <?= set_value('hrgbeli') ?>
-        </div>
         <button type="submit" class="btn btn-primary float-right">Edit Barang</button>
     </form>
     <?php endforeach ; ?>

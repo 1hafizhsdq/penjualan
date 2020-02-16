@@ -45,8 +45,7 @@ class Barang extends CI_Controller
             $data = array(
                 'nama_barang' => $this->input->post('namabar'),
                 'satuan' => $this->input->post('satuan'),
-                'harga_jual' => $this->input->post('hrgjual'),
-                'harga_beli' => $this->input->post('hrgbeli')
+                'harga_jual' => $this->input->post('hrgjual')
             );
             $insert = $this->Mbarang->create($data);
             echo json_encode(array("status" => TRUE));
@@ -82,8 +81,7 @@ class Barang extends CI_Controller
                 'id' => $this->input->post('id'),
                 'nama_barang' => $this->input->post('namabar'),
                 'satuan' => $this->input->post('satuan'),
-                'harga_jual' => $this->input->post('hrgjual'),
-                'harga_beli' => $this->input->post('hrgbeli')
+                'harga_jual' => $this->input->post('hrgjual')
             );
             $insert = $this->Mbarang->update(array('id' => $this->input->post('id')), $data);
             echo json_encode(array("status" => TRUE));

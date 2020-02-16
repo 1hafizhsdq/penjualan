@@ -20,7 +20,7 @@
     table{
       border-collapse: collapse;
       font-family: arial;
-      color:#5E5B5C;
+      color:#050505;
     }
  
     thead th{
@@ -41,11 +41,13 @@
       background: #EAE9F5
     }
   </style>
+  <!-- <link href="<?= base_url('assets'); ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
 </head><body>
 	<!-- <div id="outtable"> -->
         <h1 style="text-align:center">LAPORAN PENGADAAN</h1>
         <br><br>
-        <table border="1">
+        <table border="1" class="table table-hover">
             <!-- <thead> -->
                 <tr>
                     <th width="50">#</th>
@@ -71,3 +73,11 @@
         </table>
     <!-- </div> -->
 </body></html>
+<!-- <script src="<?= base_url('assets'); ?> /vendor/jquery/jquery.min.js"></script>
+<script src="<?= base_url('assets'); ?> /vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="<?= base_url('assets'); ?>/vendor/jquery-easing/jquery.easing.min.js"></script> -->

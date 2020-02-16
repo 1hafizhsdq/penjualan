@@ -87,7 +87,7 @@ class Auth extends CI_Controller
         );
         $this->form_validation->set_rules('password2', 'password', 'required|trim|min_length[3]|matches[password1]');
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'CB-PERPUS';
+            $data['title'] = 'Penjualan';
             $this->load->view('templates/auth_header', $data);
             $this->load->view('auth/registration');
             $this->load->view('templates/auth_footer');

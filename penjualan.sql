@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2020 at 04:02 PM
+-- Generation Time: Feb 16, 2020 at 02:05 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.14
 
@@ -32,7 +32,6 @@ CREATE TABLE `barang` (
   `id` int(11) NOT NULL,
   `nama_barang` varchar(128) NOT NULL,
   `harga_jual` int(11) NOT NULL,
-  `harga_beli` int(11) NOT NULL,
   `satuan` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -40,9 +39,9 @@ CREATE TABLE `barang` (
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`id`, `nama_barang`, `harga_jual`, `harga_beli`, `satuan`) VALUES
-(1, 'Beras', 8000, 10000, 'Kg'),
-(3, 'Beras Ketan', 8000, 3000, 'Kg');
+INSERT INTO `barang` (`id`, `nama_barang`, `harga_jual`, `satuan`) VALUES
+(1, 'Beras', 8000, 'Kg'),
+(3, 'Beras Ketan', 8000, 'Kg');
 
 -- --------------------------------------------------------
 
@@ -64,9 +63,9 @@ CREATE TABLE `detailpengadaan` (
 --
 
 INSERT INTO `detailpengadaan` (`idpengadaan`, `idbarang`, `hargabeli`, `jumlah`, `subtotal`, `status`) VALUES
-(7, 1, 10000, 20, 200000, 1),
-(8, 1, 10000, 123, 1230000, 1),
-(9, 1, 10000, 123, 1230000, 1);
+(1, 1, 10000, 1234, 12340000, 1),
+(2, 1, 10000, 80, 800000, 1),
+(3, 1, 10000, 20, 200000, 1);
 
 -- --------------------------------------------------------
 
@@ -97,6 +96,7 @@ INSERT INTO `kategori_barang` (`id`, `Nama_kategori`) VALUES
 CREATE TABLE `pengadaan` (
   `id` int(11) NOT NULL,
   `kodepengadaan` varchar(128) DEFAULT NULL,
+  `idsup` int(11) NOT NULL,
   `tgl` date DEFAULT NULL,
   `total` int(11) DEFAULT NULL,
   `fotonota` varchar(256) DEFAULT NULL
@@ -106,13 +106,10 @@ CREATE TABLE `pengadaan` (
 -- Dumping data for table `pengadaan`
 --
 
-INSERT INTO `pengadaan` (`id`, `kodepengadaan`, `tgl`, `total`, `fotonota`) VALUES
-(4, 'PG20021504', '2020-02-15', 0, 'default.jpg'),
-(5, 'PG20021504', '2020-02-15', 0, 'default.jpg'),
-(6, 'PG20021506', '2020-02-15', 12340000, 'default.jpg'),
-(7, 'PG20021507', '2020-02-15', 200000, 'default.jpg'),
-(8, 'PG20021508', '0000-00-00', 1230000, 'default.jpg'),
-(9, 'PG20021509', '2020-02-15', 1230000, 'default.jpg');
+INSERT INTO `pengadaan` (`id`, `kodepengadaan`, `idsup`, `tgl`, `total`, `fotonota`) VALUES
+(1, 'PG20021601', 2, '2020-02-16', 12340000, 'PG20021601'),
+(2, 'PG20021602', 2, '2020-02-16', 800000, 'PG20021602'),
+(3, 'PG20021603', 2, '2020-02-16', 200000, 'PG20021603.jpg');
 
 -- --------------------------------------------------------
 
@@ -134,9 +131,9 @@ CREATE TABLE `stok` (
 
 INSERT INTO `stok` (`id`, `idbarang`, `tglstok`, `stok`, `status`) VALUES
 (1, 1, '2020-02-12', 0, 1),
-(13, 1, '2020-02-15', 20, 1),
-(14, 1, '0000-00-00', 123, 1),
-(15, 1, '2020-02-15', 123, 1);
+(16, 1, '2020-02-16', 1234, 1),
+(17, 1, '2020-02-16', 80, 1),
+(18, 1, '2020-02-16', 20, 1);
 
 -- --------------------------------------------------------
 
@@ -169,7 +166,9 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
-  `image` varchar(128) NOT NULL,
+  `alamat` varchar(256) DEFAULT NULL,
+  `telp` varchar(128) DEFAULT NULL,
+  `image` varchar(128) DEFAULT NULL,
   `password` varchar(256) NOT NULL,
   `role_id` int(11) NOT NULL,
   `is_active` int(1) NOT NULL,
@@ -180,8 +179,9 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-(3, 'admin', 'admin@gmail.com', '2.PNG', '$2y$10$rNAvPeUdlG/dKZMJqnDeD.yoDoJoWnrSX80CUEJ8H3aCa70ecVEEe', 1, 1, 1580701580);
+INSERT INTO `user` (`id`, `name`, `email`, `alamat`, `telp`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
+(3, 'admin', 'admin@gmail.com', '', NULL, '2.PNG', '$2y$10$rNAvPeUdlG/dKZMJqnDeD.yoDoJoWnrSX80CUEJ8H3aCa70ecVEEe', 1, 1, 1580701580),
+(10, 'cabang2', 'cabang2@gmail.com', 'jl.cabang2', '088888882', 'default.jpg', '$2y$10$quAcwMv2xsd7rR9MxfO3X.2lOiaDbNCd1QDN/MNsB1hQhb/Xqqd72', 2, 1, 1581850149);
 
 -- --------------------------------------------------------
 
@@ -278,7 +278,9 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `is_active`) VALUE
 (7, 2, 'Change Password', 'user/changepassword', 1),
 (12, 5, 'Supplier', 'Supplier', 1),
 (13, 5, 'Barang', 'Barang', 1),
-(14, 8, 'Pengadaan', 'Pengadaan', 1);
+(14, 8, 'Pengadaan', 'Pengadaan', 1),
+(15, 8, 'Laporan Pengadaan', 'Pengadaan/laporan', 1),
+(16, 5, 'Cabang', 'Cabang', 1);
 
 -- --------------------------------------------------------
 
@@ -394,13 +396,13 @@ ALTER TABLE `kategori_barang`
 -- AUTO_INCREMENT for table `pengadaan`
 --
 ALTER TABLE `pengadaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `stok`
 --
 ALTER TABLE `stok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `supplier`
@@ -412,7 +414,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
@@ -436,7 +438,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `user_token`

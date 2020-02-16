@@ -7,37 +7,39 @@
     <div class="col-lg">
 
       <?= $this->session->flashdata('message'); ?>
-      <a href="<?= base_url() ?>Barang/formbarang" class="btn btn-primary mb-3"> Tambah Barang</a>
+      <a href="<?= base_url() ?>Cabang/formcabang" class="btn btn-primary mb-3"> Tambah Cabang</a>
       <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Nama Barang</th>
-            <th scope="col">Satuan</th>
-            <th scope="col">Harga Jual</th>
-            <th scope="col">Action</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Alamat</th>
+            <th scope="col">Telepon</th>
+            <th scope="col">Email</th>
+            <th width="170">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <?php $no = 1; ?>
-            <?php foreach ($barang as $b) : ?>
+            <?php foreach ($cabang as $c) : ?>
               <th scope="row"><?= $no ?></th>
-              <td><?= $b->nama_barang ?></td>
-              <td><?= $b->satuan ?></td>
-              <td><?= $b->harga_jual ?></td>
-              <td>
-                <a href="<?= base_url('Barang/editbarang/') ?><?= $b->id ?>" class="btn btn-success">Edit</a>
-                <a href="<?= base_url('Barang/delbarang/'); ?><?= $b->id; ?>" class="btn btn-danger">Hapus</a>
+              <td><?= $c->name ?></td>
+              <td><?= $c->alamat ?></td>
+              <td><?= $c->telp ?></td>
+              <td><?= $c->email ?></td>
+              <td>  
+                <a href="<?= base_url('Cabang/editcabang/') ?><?= $c->id ?>" class="btn btn-success">Edit</a>
+                <a href="<?= base_url('Cabang/delcabang/'); ?><?= $c->id; ?>" class="btn btn-danger">Hapus</a>
               </td>
               <?php $no++ ?>
           </tr>
-        <?php endforeach; ?>
+          <?php endforeach; ?>
         </tbody>
       </table>
 
       <!-- Modal -->
-      <?php foreach ($barang as $b2) : ?>
+
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -49,8 +51,8 @@
               </div>
               <form action="<?= base_url('Barang/delbarang') ?>" method="POST">
                 <div class="modal-body">
-                  Apakah anda yakin akan menghapus data <?= $b2->nama_barang ?>?
-                  <input type="hidden" name="idbar" value="<?= $b2->id ?>">
+                  Apakah anda yakin akan menghapus data ?
+                  <input type="hidden" name="idbar" value="">
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">tutup</button>
@@ -60,7 +62,7 @@
             </div>
           </div>
         </div>
-      <?php endforeach; ?>
+
       
     </div>
   </div>
