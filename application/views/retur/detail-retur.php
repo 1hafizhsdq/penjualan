@@ -69,7 +69,6 @@
                             <textarea type="text" class="form-control" id="ket_detail" name="ket_detail" placeholder="Keterangan Lainnya" value="<?= $last['ket_detail']; ?>" readonly></textarea>
                         </div>
                     </div>
-
                     <h6 class="m-0 font-weight-bold text-primary mt-3 mb-2">Data Barang</h6>
                     <form autocomplete="off" method="post" action="<?= base_url('Retur/simpandetail'); ?>">
                         <div class="form-row d-flex justify-content-right">
@@ -109,8 +108,8 @@
                                     <tr>
                                         <th scope="row"><?= $a++; ?></th>
                                         <td><?= $dtl['nama_barang']; ?></td>
-                                        <td><?= $dtl['jumlah']; ?></td>
-                                        <td><a href="<?= base_url('Retur/deldetail/'); ?> <?= $dtl['idbarang']; ?>" class="badge btn btn-danger">hapus</a></td>
+                                        <td><?= $dtl['jumlah']; ?></td> <?php $idbarang = $dtl['idbarang']; ?>
+                                        <td><a href="<?= base_url('Retur/deldetail/'.$idbarang.''); ?>" class="badge btn btn-danger">hapus</a></td>
                                     </tr>
                                 <?php
                                 endforeach; ?>

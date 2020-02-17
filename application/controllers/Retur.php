@@ -59,6 +59,7 @@ class Retur extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Retur';
         $data['last'] = $this->Mretur->lastid();
+
         $data['barang'] = $this->Mretur->barangid();
         $data['detail'] = $this->Mretur->showall();
         $this->load->view('templates/header', $data);
@@ -83,7 +84,7 @@ class Retur extends CI_Controller
     }
     public function deldetail($idbarang)
     {
-        $this->input->post('idbarang');
+        //$this->input->post('idbarang');
         $this->Mretur->delete($idbarang);
         redirect('Retur/insertbarang');
     }

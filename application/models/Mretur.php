@@ -30,7 +30,7 @@ class Mretur extends CI_Model
             $this->db->insert(
                 'retur',
                 array(
-                    'koderetur' => $this->input->post('kode'),
+                    'koderetur' => $this->input->post('koderetur'),
                     'id_pengadaan' => $this->input->post('id'),
                     'tanggal' => $this->input->post('tanggal', true),
                     'ket' => $this->input->post('ket'),
@@ -86,17 +86,16 @@ class Mretur extends CI_Model
          WHERE
          pengadaan.id = retur.id_pengadaan 
          and pengadaan.idsup = supplier.id
-          ORDER BY retur.Id desc limit 1");
+          ORDER BY retur.Id asc limit 1");
         return $result->row_array();
     }
 
     public function barangid()
     {
-        $query = $this->db->select('barang.nama_barang as namabarang')
-            ->from('detailpengadaan')
-            ->join('barang', 'detailpengadaan.idbarang = barang.id')
-            ->join('retur', 'detailpengadaan.idpengadaan = retur.id_pengadaan')
-            ->get();
+        $query = $this->db
+            ->query('select barang.nama_barang as namabarang
+         from detailpengadaan join barang, pengadaan where detailpengadaan.idbarang
+         = barang.id and detailpengadaan.idpengadaan = pengadaan.id order by pengadaan.id desc limit 1');
         return $query;
     }
     public function tampil_data()
@@ -109,17 +108,16 @@ class Mretur extends CI_Model
     }
     public function autokode($kode)
     {
-        $query = $this->db->query('select supplier.Nama as supplier , pengadaan.kodepengadaan as kode
-        from pengadaan join supplier WHERE pengadaan.idsup = supplier.id ORDER BY pengadaan.id DESC LIMIT 1');
+        $query = $this->db->query("select supplier.Nama as supplier , pengadaan.kodepengadaan as kode, supplier.id as id
+         from pengadaan join supplier WHERE pengadaan.idsup = supplier.id and pengadaan.kodepengadaan = '$kode'");
         return $query;
     }
     public function autostok($namabarang)
     {
         //$namabarang = $this->input->post('namabarang');
         $query = $this->db
-            ->query("SELECT stok.stok as stok, barang.nama_barang as namabarang, barang.id as idbarang FROM barang, 
-            detailpengadaan join stok where barang.id = stok.idbarang and 
-            detailpengadaan.idpengadaan = '$namabarang'");
+            ->query("SELECT stok.stok as stok, barang.nama_barang as namabarang, barang.id as idbarang FROM barang join 
+            stok where barang.id = stok.idbarang and barang.nama_barang = '$namabarang' order by stok.id desc limit 1");
 
         return $query;
     }
@@ -187,15 +185,8 @@ class Mretur extends CI_Model
 
     public function getreturbyid($id)
     {
-        $query = $this->db->query("select pengadaan.kodepengadaan as kode, 
-        supplier.Nama as supplier, retur.tanggal as tanggal, retur.ket as ket,
-        retur.ket_detail as ket_detail, retur.estimasi as estimasi, retur.total_retur as total_retur,
-         retur.status as status ,retur.Id as id
-         from pengadaan join retur , supplier 
-         WHERE
-         pengadaan.id = retur.id_pengadaan 
-         and pengadaan.idsup = supplier.id
-         and retur.Id = '$id'");
+        $query = $this->db->query("select pengadaan.kodepengadaan as kode, supplier.Nama as supplier, retur.tanggal as tanggal, retur.ket as ket, retur.ket_detail as ket_detail, retur.estimasi as estimasi, retur.total_retur as total_retur, retur.koderetur as noretur, retur.status as status ,retur.Id as id from pengadaan join retur , supplier 
+        WHERE pengadaan.id = retur.id_pengadaan and pengadaan.idsup = supplier.id and retur.Id = '$id'");
         return $query->result()[0];
     }
 }

@@ -10,7 +10,6 @@
         <div class="card-body">
             <form autocomplete="off" method="post" action="<?= base_url('Retur/save'); ?>">
                 <div class="form-row d-flex justify-content-center">
-
                     <div class="form-group col-md-3 mb-sm-2">
                         <label for="inputCity">No. Pengadaan</label>
                         <input type="text" list="tampil" class="form-control" id="kode" name="kode" value="" onchange="return autofill();">
@@ -26,7 +25,7 @@
                     </datalist>
                     <div class="form-group col-md-4 mb-sm-2">
                         <label for="inputCity">No. Retur</label>
-                        <input type="text" class="form-control" id="koderetur" name="koderetur" readonly="on" value="<?= $koderetur ?>" onchange="return autofill();">
+                        <input type="text" class="form-control" id="koderetur" name="koderetur" readonly="on" value="<?= $koderetur ?>">
                     </div>
                     <div class="form-group col-md-5">
                         <label for="inputCity">Keterangan</label>

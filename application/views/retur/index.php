@@ -33,10 +33,19 @@
                                         <td><?= $r['tanggal'] ?></td>
                                         <td><?= $r['kode'] ?></td>
                                         <td><?= $r['supplier'] ?></td>
+                                        <?php
+                                        $st = $r['status'];
+                                        if ($st == '0') {
+                                            $st = 'Menunggu Retur';
+                                        }
+                                        if ($st == '1') {
+                                            $st = 'Retur';
+                                        }
+                                         ?>
                                         <td><?= $r['estimasi'] ?></td>
-                                        <td><?= $r['status'] ?></td>
-                                        <td> <a href="<?= base_url('Datamaster/delsupplier/'); ?><?= $r['Id']; ?>" class=" btn btn-primary"><i class="far fa-eye"></i></a>
-                                            <a href="" class="btn btn-primary showdetail" data-toggle="modal" data-url="<?= base_url('Retur/showdetail/') ?><?= $r['Id']; ?>" data-target=".bd-example-modal-lg">Edit</a>
+                                        <td><?= $st ?></td>
+                                        <td>
+                                            <a href="" class="btn btn-primary showdetail" data-toggle="modal" data-url="<?= base_url('Retur/showdetail/') ?><?= $r['Id']; ?>" data-target=".bd-example-modal-lg"><i class="far fa-eye"></i></a></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
