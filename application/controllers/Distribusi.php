@@ -6,12 +6,15 @@ class Distribusi extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Mdistribusi');
+        $this->load->model('Mbarang');
+        $this->load->model('Mstok');
+        $this->load->model('Mcabang');
     }
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Distribusi';
-        // $data['barang'] = $this->Mbarang->getbarang();
+        $data['barang'] = $this->Mbarang->getbarang();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -23,15 +26,14 @@ class Distribusi extends CI_Controller{
     public function formdist()
     {
         if(isset($_POST['submit'])){
-            $this->Mpengadaan->insertdetailfirst();
-            redirect('Pengadaan/formpengadaan');
+            $this->Mdistribusi->insertdetailfirst();
+            redirect('Distribusi/formdist');
         }else{
             $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
             $data['title'] = 'Distribusi';
-            // $data['detail']= $this->Mpengadaan->showcart();
-            // $data['barang'] = $this->Mbarang->getbarang();
-            // $data['supplier'] = $this->Msupplier->getsupplier();
-            // $data['total'] = $this->Mpengadaan->counttotal();
+            $data['detail']= $this->Mdistribusi->showcart();
+            $data['barang'] = $this->Mbarang->getbarang();
+            $data['cabang'] = $this->Mcabang->getcabang();
     
             // get kode transaksi
             $kode = 'DS' . date('ymd');
@@ -48,5 +50,26 @@ class Distribusi extends CI_Controller{
             $this->load->view('templates/footer', $data);
         }
 
+    }
+
+    public function remove(){
+        $id =  $this->uri->segment(3);
+        $tgl =  $this->uri->segment(4);
+        $jml =  $this->uri->segment(5);
+        $this->Mdistribusi->delcart($id,$tgl,$jml);
+        redirect('Distribusi/formdist');
+    }
+
+    public function gettgl(){
+        $id=$this->input->post('id');
+        $data=$this->Mdistribusi->cektgl($id);
+        echo json_encode($data);
+    }
+    
+    public function getstok(){
+        // $id=$this->input->post('id');
+        $id=$this->input->post('tgl');
+        $data=$this->Mstok->cekStok($tgl);
+        echo json_encode($data);
     }
 }

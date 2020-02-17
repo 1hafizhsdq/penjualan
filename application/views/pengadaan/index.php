@@ -29,7 +29,7 @@
             <td><?= $p->tgl ?></td>
             <td>Rp. <?= number_format($p->total,2) ?></td>
             <td>
-              <a class="btn btn-primary showdetail" data-toggle="modal" data-url="<?=base_url('Pengadaan/showdetail/') ?><?= $p->id ?>" data-target=".bd-example-modal-lg">Detail</a>
+              <a class="btn btn-primary showdetail" href="" data-toggle="modal" data-url="<?=base_url('Pengadaan/showdetail/') ?><?= $p->id ?>" data-target=".bd-example-modal-lg">Detail</a>
             </td>
           </tr>
           <?php $no++ ?>
