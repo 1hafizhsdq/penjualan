@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2020 at 02:05 PM
+-- Generation Time: Feb 17, 2020 at 09:00 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.14
 
@@ -70,6 +70,40 @@ INSERT INTO `detailpengadaan` (`idpengadaan`, `idbarang`, `hargabeli`, `jumlah`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `detailretur`
+--
+
+CREATE TABLE `detailretur` (
+  `id_retur` int(11) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detailretur`
+--
+
+INSERT INTO `detailretur` (`id_retur`, `id_barang`, `jumlah`, `status`) VALUES
+(5, 3, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `distribusi`
+--
+
+CREATE TABLE `distribusi` (
+  `id` int(11) NOT NULL,
+  `kodedistribusi` varchar(128) NOT NULL,
+  `idcabang` int(11) NOT NULL,
+  `tgldistribusi` date NOT NULL,
+  `total` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kategori_barang`
 --
 
@@ -110,6 +144,35 @@ INSERT INTO `pengadaan` (`id`, `kodepengadaan`, `idsup`, `tgl`, `total`, `fotono
 (1, 'PG20021601', 2, '2020-02-16', 12340000, 'PG20021601'),
 (2, 'PG20021602', 2, '2020-02-16', 800000, 'PG20021602'),
 (3, 'PG20021603', 2, '2020-02-16', 200000, 'PG20021603.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `retur`
+--
+
+CREATE TABLE `retur` (
+  `Id` int(11) NOT NULL,
+  `koderetur` varchar(128) NOT NULL,
+  `id_pengadaan` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `ket` varchar(128) NOT NULL,
+  `ket_detail` varchar(128) DEFAULT NULL,
+  `estimasi` int(11) NOT NULL,
+  `total_retur` int(11) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `retur`
+--
+
+INSERT INTO `retur` (`Id`, `koderetur`, `id_pengadaan`, `tanggal`, `ket`, `ket_detail`, `estimasi`, `total_retur`, `status`) VALUES
+(5, '1', 1, '2020-02-17', '1', 'asd', 5, 2, 0),
+(6, 'PG20021603', 0, '2020-02-17', '2', '-', 20, 0, 0),
+(7, 'PG20021603', 0, '2020-02-17', '1', '', 5, 0, 0),
+(8, 'PG20021603', 0, '2020-02-03', '1', '', 20, 0, 0),
+(9, 'PG20021603', 0, '2020-02-04', '2', '', 10, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -207,7 +270,8 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (5, 1, 5),
 (6, 1, 7),
 (7, 1, 8),
-(8, 2, 8);
+(8, 2, 8),
+(9, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -230,7 +294,8 @@ INSERT INTO `user_menu` (`id`, `menu`, `icon`) VALUES
 (2, 'user', 'fas fas-fw fa-user-alt'),
 (5, 'Datamaster', 'fas fa-fw fa-folder'),
 (7, 'Dashboard', 'fas fa-fw fa-columns'),
-(8, 'Pengadaan', 'fas fa-fw fa-asterisk');
+(8, 'Pengadaan', 'fas fa-fw fa-asterisk'),
+(9, 'Distribusi', 'fas fa-fw fa-folder');
 
 -- --------------------------------------------------------
 
@@ -280,7 +345,8 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `is_active`) VALUE
 (13, 5, 'Barang', 'Barang', 1),
 (14, 8, 'Pengadaan', 'Pengadaan', 1),
 (15, 8, 'Laporan Pengadaan', 'Pengadaan/laporan', 1),
-(16, 5, 'Cabang', 'Cabang', 1);
+(16, 5, 'Cabang', 'Cabang', 1),
+(17, 9, 'Distribusi Cabang', 'Distribusi', 1);
 
 -- --------------------------------------------------------
 
@@ -317,6 +383,12 @@ ALTER TABLE `barang`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `distribusi`
+--
+ALTER TABLE `distribusi`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `kategori_barang`
 --
 ALTER TABLE `kategori_barang`
@@ -327,6 +399,12 @@ ALTER TABLE `kategori_barang`
 --
 ALTER TABLE `pengadaan`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `retur`
+--
+ALTER TABLE `retur`
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- Indexes for table `stok`
@@ -387,6 +465,12 @@ ALTER TABLE `barang`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `distribusi`
+--
+ALTER TABLE `distribusi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `kategori_barang`
 --
 ALTER TABLE `kategori_barang`
@@ -397,6 +481,12 @@ ALTER TABLE `kategori_barang`
 --
 ALTER TABLE `pengadaan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `retur`
+--
+ALTER TABLE `retur`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `stok`
@@ -420,13 +510,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user_role`
@@ -438,7 +528,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `user_token`
