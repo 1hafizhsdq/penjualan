@@ -36,7 +36,7 @@
                                         <td><?= $r['estimasi'] ?></td>
                                         <td><?= $r['status'] ?></td>
                                         <td> <a href="<?= base_url('Datamaster/delsupplier/'); ?><?= $r['Id']; ?>" class=" btn btn-primary"><i class="far fa-eye"></i></a>
-                                            <a class="btn btn-primary showdetail" data-toggle="modal" data-url="<?= base_url('Retur/showdetail/') ?><?= $r['Id']; ?>" data-target=".bd-example-modal-lg">Edit</a>
+                                            <a href="" class="btn btn-primary showdetail" data-toggle="modal" data-url="<?= base_url('Retur/showdetail/') ?><?= $r['Id']; ?>" data-target=".bd-example-modal-lg">Edit</a>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

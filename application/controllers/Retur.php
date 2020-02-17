@@ -155,8 +155,6 @@ class Retur extends CI_Controller
         $response = [];
         $response['retur'] = $this->Mretur->getreturbyid($id);
         $response['detail_retur'] = $this->Mretur->getdetail($id);
-
-        // echo json_encode($response);
         $this->load->view('retur/detailedit', $response);
     }
 }
