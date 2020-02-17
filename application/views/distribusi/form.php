@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <h6 class="m-0 font-weight-bold text-primary mt-3">Keranjang</h6>
                 </div>
-                <form action="<?= base_url('Pengadaan/formpengadaan') ?>" method="post">
+                <form action="<?= base_url('Distribusi/formdist') ?>" method="post">
                 <div class="form-group ml-2 mr-2">
                     <div class="form-row d-flex justify-content-end" id="hitungstok">
                         <div class="form-group col-md-4 mb-sm-2">
@@ -47,18 +47,18 @@
                                 </tr>
                             </thead>
                             <tbody id="detail_cart">
-                            <?php foreach ($detail as $item) { ?>
+                            <!-- <?php foreach ($detail as $item) { ?>
                                 <tr>
                                     <td><?= $item->nama_barang ?></td>
                                     <td><?= $item->jumlah ?></td>
                                     <td>Rp. <?= number_format($item->hargabeli,2) ?></td>
                                     <td><a href="<?= base_url('Pengadaan/remove/'.$item->idbarang); ?>" class="btn btn-danger">X</a></td>
                                 </tr>
-                            <?php } ?>
+                            <?php } ?> -->
                             </tbody>
                                     <tr>
                                         <td colspan="2">Total</td>
-                                        <td colspan="2"><?= $total[0]['sum(subtotal)'] ?></td>
+                                        <!-- <td colspan="2"><?= $total[0]['sum(subtotal)'] ?></td> -->
                                     </tr>
                         </table>
                 </div>
@@ -76,24 +76,24 @@
                         <input type="hidden" id="base_path" value="<?= base_url(); ?>" />
                             <div class="form-group col-md-6 mb-sm-2">
                                 <label for="inputCity">No. Pengadaan</label>
-                                <input type="text" value="<?= $nopengadaan ?>" class="form-control" id="no_pengadaan" name="no_pengadaan" readonly="on" value="">
+                                <input type="text" value="<?= $nodistribusi ?>" class="form-control" id="no_pengadaan" name="no_pengadaan" readonly="on" value="">
                             </div>
                             <div class="form-group col-md-6 mb-sm-2">
                                 <label for="inputCity">Tanggal Pengadaan</label>
                                 <input type="date" class="form-control" id="tanggal" name="tanggal" value="<?= set_value('tanggal') ?>">
                                 <?= form_error('tanggal','<small class="text-danger pl-3">','</small>') ?>
                             </div>
-                            <input type="hidden" class="form-control" id="total" name="total" value="<?= $total[0]['sum(subtotal)'] ?>">
+                            <!-- <input type="hidden" class="form-control" id="total" name="total" value="<?= $total[0]['sum(subtotal)'] ?>"> -->
                         </div>
                         <div class="form-row d-flex justify-content-end">
 
                             <div class="form-group col-md-12 mb-sm-2">
-                                <label for="inputCity">Supplier</label>
+                                <label for="inputCity">Cabang</label>
                                 <select class="custom-select" name="sup" >
-                                    <option value="<?= set_value('sup') ?>" selected>-- Pilih Supplier --</option>
-                                    <?php foreach ($supplier as $s) : ?>
+                                    <option value="<?= set_value('sup') ?>" selected>-- Pilih Cabang --</option>
+                                    <!-- <?php foreach ($supplier as $s) : ?>
                                         <option value="<?= $s['id'] ?>"><?= $s['Nama'] ?></option>
-                                    <?php endforeach; ?>
+                                    <?php endforeach; ?> -->
                                 </select>
                                 <?= form_error('sup','<small class="text-danger pl-3">','</small>') ?>
                             </div>
