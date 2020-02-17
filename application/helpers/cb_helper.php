@@ -25,15 +25,16 @@ function is_logged_in()
         redirect('auth/blocked');
     }
 }
-function check_access($role_id, $id)
+function check_access($returid, $barangid)
 {
     $ci = get_instance();
-    $ci->db->where('role_id', $role_id);
-    $ci->db->where('menu_id', $id);
-    $result = $ci->db->get('user_access_menu');
+    $ci->db->where('id_retur', $returid);
+    $ci->db->where('id_barang', $barangid);
+    $ci->db->where('status', '1');
+
+    $result = $ci->db->get('detailretur');
 
     if ($result->num_rows() > 0) {
-        //untuk mengeblock hak access
         return "checked='checked'";
     }
 }

@@ -68,7 +68,6 @@ class admin extends CI_Controller
             redirect('admin/role');
         }
     }
-
     public function changeaccess()
     {
         $menu_id = $this->input->post('menuId');

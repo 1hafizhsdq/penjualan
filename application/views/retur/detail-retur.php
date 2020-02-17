@@ -16,7 +16,7 @@
                         </div>
                         <div class="form-group col-md-4 mb-sm-2">
                             <label for="inputCity">No. Retur</label>
-                            <input type="text" class="form-control" id="koderetur" name="koderetur" readonly="on" value="<?= $last['id']; ?>">
+                            <input type="text" class="form-control" id="koderetur" name="koderetur" readonly="on" value="<?= $last['koderetur']; ?>">
 
 
                         </div>
@@ -81,7 +81,7 @@
 
                             </div>
                             <div class="form-group col-md-2 mb-sm-2">
-                                <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah retur">
+                                <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah retur">
                             </div>
                             <div class="form-group col-md-2 mb-sm-2">
                                 <input type="text" class="stok form-control" id="stok" name="stok" placeholder="stok" readonly="on">
@@ -109,7 +109,7 @@
                                         <th scope="row"><?= $a++; ?></th>
                                         <td><?= $dtl['nama_barang']; ?></td>
                                         <td><?= $dtl['jumlah']; ?></td> <?php $idbarang = $dtl['idbarang']; ?>
-                                        <td><a href="<?= base_url('Retur/deldetail/'.$idbarang.''); ?>" class="badge btn btn-danger">hapus</a></td>
+                                        <td><a href="<?= base_url('Retur/deldetail/' . $idbarang . ''); ?>" class="badge btn btn-danger">hapus</a></td>
                                     </tr>
                                 <?php
                                 endforeach; ?>
@@ -124,7 +124,7 @@
                         </datalist>
 
                         <div class="form-row d-flex justify-content-center">
-                            <button type="button" class="btn btn-primary mr-2">Cetak Nota</button>
+                            <a href="<?= base_url('retur/index'); ?>" class="btn btn-primary mr-2">Selesai</a>
 
                         </div>
                     </form>

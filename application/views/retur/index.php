@@ -41,11 +41,13 @@
                                         if ($st == '1') {
                                             $st = 'Retur';
                                         }
-                                         ?>
+                                        ?>
                                         <td><?= $r['estimasi'] ?></td>
                                         <td><?= $st ?></td>
                                         <td>
-                                            <a href="" class="btn btn-primary showdetail" data-toggle="modal" data-url="<?= base_url('Retur/showdetail/') ?><?= $r['Id']; ?>" data-target=".bd-example-modal-lg"><i class="far fa-eye"></i></a></td>
+                                            <a href="<?= base_url('retur/detailedit/') . $r['Id']; ?>" class="btn btn-info">access</a>
+                                            <a href="<?= base_url('Retur/cetaknota/') . $r['Id']; ?>" class="btn btn-warning">Cetak</a>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

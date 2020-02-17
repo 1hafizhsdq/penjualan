@@ -29,8 +29,8 @@ class Retur extends CI_Controller
         $data['tampil'] = $this->Mretur->tampil_data();
         // koderetur
         $kode = 'RT' . date('ymd');
-        $kode_terakhir = $this->Mretur->getmaxid('Retur', 'id', $kode);
-        $kode_tambah = substr($kode_terakhir, -5, 5);
+        $kode_terakhir = $this->Mretur->getmaxid();
+        $kode_tambah = substr($kode_terakhir['max(id)'], -1, 1);
         $kode_tambah++;
         $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
         $data['koderetur'] = $kode . $number;
@@ -140,7 +140,7 @@ class Retur extends CI_Controller
         $this->load->view('retur/cetakretur', $data);
 
         $paper_size = 'A4';
-        $orientation = 'potrait';
+        $orientation = 'landscape';
         $html = $this->output->get_output();
         $this->dompdf->set_paper($paper_size, $orientation);
         $this->dompdf->load_html($html);
@@ -148,6 +148,23 @@ class Retur extends CI_Controller
         $this->dompdf->stream("Laporan Retur" . $awal . " sampai " . $akhir . ".pdf", array("attachment" => 0));
     }
     // cetak laporan
+    // cetak laporan
+    public function cetaknota($id)
+    {
+        $this->load->library('dompdf_gen');
+        $data['retur'] = $this->Mretur->getreturbyid($id);
+        $data['det'] = $this->Mretur->getdetail($id);
+        $this->load->view('retur/cetaknota', $data);
+        $paper_size = 'A4';
+        $orientation = 'potrait';
+        $html = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream("Nota Retur" . $id . ".pdf", array("attachment" => 0));
+    }
+    // cetak laporan
+
 
     public function showdetail($id)
     {
@@ -157,5 +174,54 @@ class Retur extends CI_Controller
         $response['retur'] = $this->Mretur->getreturbyid($id);
         $response['detail_retur'] = $this->Mretur->getdetail($id);
         $this->load->view('retur/detailedit', $response);
+    }
+
+    public function detailedit($id)
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Retur';
+        // $data['last'] = $this->Mretur->lastid();
+        // $data['barang'] = $this->Mretur->barangid();
+        // $data['retur'] = $this->Mretur->allretur();
+        $data['retur'] = $this->Mretur->getreturbyid($id);
+        $data['detail_retur'] = $this->Mretur->getdetail($id);
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('retur/detailedit.php', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function ajaxdetail()
+    {
+        $returid = $this->input->post('returid');
+        $barangid = $this->input->post('roleId');
+
+        $data = [
+            'id_retur' => $returid,
+            'id_barang' => $barangid,
+            'status' => '0',
+        ];
+
+        $result = $this->db->get_where('detailretur', $data);
+
+        if ($result->num_rows() < 1) {
+
+            $this->db->set(array(
+                'status' => '1'
+            ));
+            $this->db->where($data =
+                [
+                    'id_retur' => $barangid,
+                    'id_barang' => $returid
+                ]);
+            $this->db->update('detailretur');
+            return true;
+        } else {
+        }
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            Access Changed
+          </div>');
     }
 }
