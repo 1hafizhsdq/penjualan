@@ -20,15 +20,13 @@ class Mpengadaan extends CI_Model
         $data = $this->db->query("select pengadaan.*,supplier.Nama from pengadaan join supplier on pengadaan.idsup=supplier.id  where tgl between '$awal' and '$akhir'");
         return $data->result();
     }
-
+    
     public function getdetail($id){
         $query = $this->db
-            ->select('p.*,s.Nama,s.Alamat,s.Telp,b.nama_barang as namabar,b.satuan,dp.hargabeli,dp.jumlah,dp.subtotal')
-            ->from('pengadaan p')
-            ->join('supplier s', 'p.idsup=s.id')
-            ->join('detailpengadaan dp', 'p.id=dp.idpengadaan')
+            ->select('dp.*, b.nama_barang')
+            ->from('detailpengadaan dp')
             ->join('barang b', 'dp.idbarang=b.id')
-            ->where('p.id',$id)
+            ->where('dp.idpengadaan',$id)
             ->get();
 
         return $query->result();
@@ -99,5 +97,16 @@ class Mpengadaan extends CI_Model
         $this->db->query("update detailpengadaan set idpengadaan=".$idpengadaan.", status='1' where status=0");
         $tgl = $this->db->query("select tgl from pengadaan where id=".$idpengadaan."")->row_array();
         $this->db->query("update stok set tglstok='".$tgl['tgl']."', status='1' where status=0");
+    }
+
+    public function getpengadaanbyid($id){
+        $query = $this->db
+        ->select('p.*,s.Nama,s.Alamat,s.Telp')
+        ->from('pengadaan p')
+        ->join('supplier s', 'p.idsup=s.id')
+        ->where('p.id', $id)
+        ->get();
+
+        return $query->result()[0];
     }
 }

@@ -2,17 +2,18 @@
     <div class="row">
         <div class="col">
             <table>
+            
                 <tr>
                     <th>Kode Pengadaan</th>
-                    <td id="kodepengadaan">: </td>
+                    <td id="kodepengadaan">: <?= $pengadaan->kodepengadaan ?></td>
                 </tr>
                 <tr>
                     <th>Tanggal</th>
-                    <td id="tgl">:</td>
+                    <td id="tgl">: <?= $pengadaan->tgl ?></td>
                 </tr>
                 <tr>
                     <th>Total</th>
-                    <td id="total">:</td>
+                    <td id="total">: <?= $pengadaan->total ?></td>
                 </tr>
             </table>
         </div>
@@ -20,15 +21,15 @@
             <table>
                 <tr>
                     <th>Supplier</th>
-                    <td id="sup">:</td>
+                    <td id="sup">: <?= $pengadaan->Nama ?></td>
                 </tr>
                 <tr>
                     <th>Alamat</th>
-                    <td id="alamat">:</td>
+                    <td id="alamat">: <?= $pengadaan->Alamat ?></td>
                 </tr>
                 <tr>
                     <th>Telp</th>
-                    <td id="telp">:</td>
+                    <td id="telp">: <?= $pengadaan->Telp ?></td>
                 </tr>
             </table>
         </div>
@@ -41,15 +42,15 @@
             </tr>
         </thead>
         <tbody id="detail_cart">
-        
+        <?php foreach($detail_pengadaan as $dp) : ?>
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><?= $dp->nama_barang ?></td>
+                <td><?= $dp->jumlah ?></td>
+                <td><?= $dp->hargabeli?></td>
             </tr>
-        
+        <?php endforeach; ?>
         </tbody>
         </table>
-        <img src="./nota/pengadaan/PG20021603.jpg" class="img-fluid" alt="Responsive image">
+        <img src="./nota/pengadaan/<?= $pengadaan->fotonota ?>" class="img-fluid" alt="Responsive image">
     </div>
     </div>
