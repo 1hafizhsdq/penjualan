@@ -7,14 +7,14 @@ class Mpengadaan extends CI_Model
      private $table = "pengadaan";
      var $column_order = array(null, 'p.kodepengadaan', 's.Nama', 'p.tgl', 'p.total'); //set column field database for datatable orderable
      var $column_search = array('p.kodepengadaan', 's.Nama', 'p.tgl', 'p.total'); //set column field database for datatable searchable
-     var $order = array('p.kodepengadaan' => 'desc'); // default order
+     var $order = array('p.tgl' => 'desc'); // default order
   
      private function _get_datatables_query() {
         $query = $this->db
         ->select('p.*,s.Nama')
         ->from('pengadaan p')
         ->join('supplier s', 'p.idsup=s.id', 'inner')
-        ->order_by('p.kodepengadaan', 'DESC')
+        // ->order_by('p.kodepengadaan', 'DESC')
         ->limit(25);
         // ->get();
         // $this->db->query("select p.*, s.Nama from pengadaan p join supplier s on p.idsup=s.id order by p.kodepengadaan DESC");

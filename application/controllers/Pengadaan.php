@@ -24,9 +24,9 @@ class Pengadaan extends CI_Controller
             $row[] = $item->kodepengadaan;
             $row[] = $item->Nama;
             $row[] = mediumdate_indo($item->tgl);
-            $row[] = number_format($item->total,2);
+            $row[] = "Rp. ".number_format($item->total,2);
             // add html for action
-            $row[] = "<a class='btn btn-primary showdetail' href='' data-toggle='modal' data-url='".base_url('Pengadaan/showdetail/'. $item->id )." data-target='.bd-example-modal-lg'>Detail</a>";
+            $row[] = "<a class='btn btn-primary showdetail' href='' data-toggle='modal' data-url='".base_url('Pengadaan/showdetail/'. $item->id )."' data-target='.bd-example-modal-lg'>Detail</a>";
             // '<a class="btn btn-primary showdetail" href="" data-toggle="modal" data-url="base_url("Pengadaan/showdetail/'. $item->id .'")" data-target=".bd-example-modal-lg">Detail</a>';
             $data[] = $row;
         }
@@ -144,10 +144,10 @@ class Pengadaan extends CI_Controller
     public function showdetail($id){
         $data = $this->Mpengadaan->getdetail($id);
 
+        print_r($id);die;
         $response = [];
         $response['pengadaan'] = $this->Mpengadaan->getpengadaanbyid($id);
         $response['detail_pengadaan'] = $this->Mpengadaan->getdetail($id);
-
         // echo json_encode($response);
         $this->load->view('pengadaan/detail',$response);
     }

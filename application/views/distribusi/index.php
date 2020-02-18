@@ -30,6 +30,7 @@
               <td><?= $d->total ?></td>
               <td>  
               <a class="btn btn-primary showdetail" href="" data-toggle="modal" data-url="<?=base_url('Distribusi/showdetail/') ?><?= $d->id ?>" data-target=".bd-example-modal-lg">Detail</a>
+              <a class="btn btn-warning showdetail" href="<?=base_url('Distribusi/cetaknota/') ?><?= $d->id ?>" >Nota</a>
               </td>
             </tr>
             <?php $no++ ?>

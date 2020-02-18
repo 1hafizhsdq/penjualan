@@ -68,8 +68,8 @@
             }, 
             "columnDefs": [
               { 
-                  "targets": [0,1,2,3,4], 
-                  "orderable": true, 
+                  "targets": [0,5], 
+                  "orderable": false, 
               },
             ], 
         });

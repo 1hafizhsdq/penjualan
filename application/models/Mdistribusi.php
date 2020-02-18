@@ -85,6 +85,11 @@ class Mdistribusi extends CI_Model
         $query = "SELECT sum(subtotal) FROM `detaildistribusi` WHERE iddist=0 and status=0";
         return $this->db->query($query)->result_array();
     }
+    
+    public function counttotalbyid($id){
+        $query = "SELECT sum(subtotal) as total FROM `detaildistribusi` WHERE iddist='$id'";
+        return $this->db->query($query)->result()[0];
+    }
 
     public function savedistribusi($data){
         $this->db->insert('distribusi',$data);
@@ -112,5 +117,13 @@ class Mdistribusi extends CI_Model
             ->where('dd.iddist',$id)
             ->get();
         return $query->result();
+    }
+
+    public function getdistribusibydate(){
+        $awal = $this->input->post('tglmulai');
+        $akhir = $this->input->post('tglselesai');
+        $data = $this->db->query("select distribusi.*,user.name from distribusi join user on distribusi.idcabang=user.id  where tgldistribusi between '$awal' and '$akhir'");
+        return $data->result();
+        print_r($data);die;
     }
 }
