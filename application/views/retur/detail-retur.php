@@ -75,10 +75,8 @@
                             <div class="form-group col-md-3 mb-sm-2">
                                 <input type="text" class="form-control" id="namabarang" name="namabarang" placeholder="Barang" list="tampil" onchange="return autofill();">
                                 <input type="hidden" class="form-control" id="idbarang" name="idbarang" placeholder="Barang">
-
+                                <input type="hidden" class="form-control" id="tanggal" name="tanggal" value="<?= $last['tanggal'] ?>" readonly>
                                 <input type="hidden" class="form-control" id="Id" name="Id" readonly="on" value="<?= $last['id']; ?>">
-
-
                             </div>
                             <div class="form-group col-md-2 mb-sm-2">
                                 <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah retur">
