@@ -8,6 +8,8 @@ class Retur extends CI_Controller
         parent::__construct();
         $this->load->helper('tgl_indo');
         $this->load->model('Mretur');
+        //$this->load->library('pagination');
+        $this->load->helper(array('url'));
     }
 
     public function index()
@@ -15,6 +17,7 @@ class Retur extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Retur';
         $data['retur'] = $this->Mretur->allretur();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -225,4 +228,7 @@ class Retur extends CI_Controller
             Access Changed
           </div>');
     }
+    // pagination
+
+    // pagination
 }

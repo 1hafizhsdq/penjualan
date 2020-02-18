@@ -9,7 +9,8 @@ class Supplier extends CI_Controller
         $this->load->model('Msupplier');
     }
 
-    public function index(){
+    public function index()
+    {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Supplier'; //nama harus sama dengan sub menu
         $data['supplier'] = $this->Msupplier->getsupplier();
@@ -21,7 +22,8 @@ class Supplier extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    public function formsup(){
+    public function formsup()
+    {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Supplier'; //nama harus sama dengan sub menu
         $data['supplier'] = $this->Msupplier->getsupplier();
@@ -33,7 +35,8 @@ class Supplier extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    public function newsup(){
+    public function newsup()
+    {
         $this->form_validation->set_rules('namasup', 'Nama', 'required', ['required' => 'Nama Supplier tidak boleh kosong']);
         $this->form_validation->set_rules('alamat', 'Alamat', 'required', ['required' => 'Alamat tidak boleh kosong']);
         $this->form_validation->set_rules('telp', 'Telepon', 'required', ['required' => 'Telepon tidak boleh kosong']);
@@ -54,7 +57,8 @@ class Supplier extends CI_Controller
         }
     }
 
-    public function editsup($id){
+    public function editsup($id)
+    {
         $where = array('id' => $id);
         $data['datasup'] = $this->Msupplier->getsupbyid($where, 'supplier');
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -68,7 +72,8 @@ class Supplier extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    public function updatesup(){
+    public function updatesup()
+    {
         $this->form_validation->set_rules('namasup', 'Nama', 'required', ['required' => 'Nama Supplier tidak boleh kosong']);
         $this->form_validation->set_rules('alamat', 'Alamat', 'required', ['required' => 'Alamat tidak boleh kosong']);
         $this->form_validation->set_rules('telp', 'Telepon', 'required', ['required' => 'Telepon tidak boleh kosong']);

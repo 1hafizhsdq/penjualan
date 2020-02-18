@@ -24,11 +24,10 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <?php $a = 1; ?>
+                            <tbody><?php $no = 1; ?>
                                 <?php foreach ($retur as $r) : ?>
                                     <tr class="centered">
-                                        <td><?= $a++ ?></td>
+                                        <td><?= $no++; ?></td>
                                         <td><?= $r['koderetur'] ?></td>
                                         <td><?= mediumdate_indo($r['tanggal']) ?></td>
                                         <td><?= $r['kode'] ?></td>
@@ -52,32 +51,10 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
-                        <!-- modal -->
-                        <div id="modaldetail" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="judul">Konfirmasi Retur</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- modal -->
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
-    <script rel="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(".showdetail").click(function() {
-            $("#modaldetail .modal-body").load(`${$(this).data('url')}`)
-        })
-    </script>

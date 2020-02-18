@@ -13,7 +13,6 @@ class Menu extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Menu Management'; //nama harus sama dengan sub menu
         $data['menu'] = $this->db->get('user_menu')->result_array();
-
         $this->form_validation->set_rules('menu', 'menu', 'required');
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);

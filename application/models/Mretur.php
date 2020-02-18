@@ -10,10 +10,14 @@ class Mretur extends CI_Model
 
     public function allretur()
     {
-        $query = $this->db->query("SELECT retur.* , supplier.Nama as supplier, pengadaan.kodepengadaan as kode from pengadaan, supplier join retur where pengadaan.id = retur.id_pengadaan AND pengadaan.idsup = supplier.id");
+        $query = $this->db->query("SELECT retur.* , supplier.Nama as supplier,
+         pengadaan.kodepengadaan as kode from pengadaan, supplier join retur where
+          pengadaan.id = retur.id_pengadaan AND pengadaan.idsup = supplier.id");
 
         return $query->result_array();
     }
+
+    
 
     public function delete($idbarang)
     {

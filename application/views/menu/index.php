@@ -18,11 +18,10 @@
                         <th scope="col">Handle</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php $a = 1; ?>
+                <tbody><?php $no = 1; ?>
                     <?php foreach ($menu as $mn) : ?>
                         <tr>
-                            <th scope="row"><?= $a++; ?></th>
+                            <th scope="row"><?= $no++; ?></th>
                             <td><?= $mn['menu']; ?></td>
                             <td>
                                 <a href="" class="badge badge-pill badge-success">edit</a>
