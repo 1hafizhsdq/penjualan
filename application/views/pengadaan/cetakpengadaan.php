@@ -64,7 +64,7 @@
                     <th scope="row"><?= $no ?></th>
                     <td><?= $lp->kodepengadaan ?></td>
                     <td><?= $lp->Nama ?></td>
-                    <td><?= $lp->tgl ?></td>
+                    <td><?= mediumdate_indo($lp->tgl) ?></td>
                     <td>Rp. <?=  number_format($lp->total,2) ?></td>
                 </tr>
                 <?php $no++ ?>

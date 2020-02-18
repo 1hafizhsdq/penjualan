@@ -30,7 +30,7 @@
                                     <tr class="centered">
                                         <td><?= $a++ ?></td>
                                         <td><?= $r['koderetur'] ?></td>
-                                        <td><?= $r['tanggal'] ?></td>
+                                        <td><?= mediumdate_indo($r['tanggal']) ?></td>
                                         <td><?= $r['kode'] ?></td>
                                         <td><?= $r['supplier'] ?></td>
                                         <?php

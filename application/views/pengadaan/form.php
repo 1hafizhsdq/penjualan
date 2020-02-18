@@ -13,7 +13,13 @@
                     <div class="form-row d-flex justify-content-end" id="hitungstok">
                         <div class="form-group col-md-4 mb-sm-2">
                             <label for="inputCity">Nama Barang</label>
-                            <input type="text" class="form-control" id="nama_barang" name="nama_barang">
+                            <!-- <input type="text" class="form-control" id="nama_barang" name="nama_barang"> -->
+                            <select id="barang" name="barang" class="form-control">
+                                <option selected>-- Pilih Barang --</option>
+                            <?php foreach($barang as $b) : ?>
+                                <option value="<?= $b->id ?>"><?= $b->nama_barang ?></option>
+                            <?php endforeach; ?>
+                            </select>
                         </div><br />
                         <div class="form-group col-md-2 mb-sm-2">
                             <label for="inputCity">Qty</label>
@@ -25,10 +31,11 @@
                             <input type="number" class="form-control" id="harga_beli" name="harga_beli">
                         </div>
                         <br />
-                        <input type="hidden" class="form-control" id="id" name="id">
+                        <!-- <input type="hidden" class="form-control" id="id" name="id"> -->
                         <div class="form-group col-md-2 mb-sm-2">
-                            <label for="inputCity">Stok Barang</label>
+                            <label for="inputCity">Stok Barang Sekarang</label>
                             <input type="text" class="form-control" id="stok" name="stok" readonly> &nbsp;
+                            <p id="satuan"></p>
                         </div>
                     </div>
                     <div class="form-row d-flex justify-content-center">
@@ -118,3 +125,21 @@
 </div>
 
 <script src="<?= base_url('assets'); ?> /vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#barang').change(function(){
+            var id=$(this).val();
+            $.ajax({
+                url : "<?php echo base_url('Pengadaan/getstok');?>",
+                method : "POST",
+                data : {id: id},
+                async : false,
+                dataType : 'json',
+                success: function(data){
+                    console.log(data)
+                    $('#stok').val(data[0].stok);
+                }
+            });
+        });
+    });
+</script>

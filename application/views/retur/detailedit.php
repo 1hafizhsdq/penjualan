@@ -28,7 +28,7 @@
 
                         <div class="form-group col-md-4 mb-sm-2">
                             <label for="inputCity">Tanggal</label>
-                            <input type="text" class="form-control" id="tanggal" name="tanggal" readonly="on" value="<?= $retur->tanggal ?>">
+                            <input type="text" class="form-control" id="tanggal" name="tanggal" readonly="on" value="<?= mediumdate_indo($retur->tanggal) ?>">
                         </div>
                         <div class="form-group col-md-4 mb-sm-2">
                             <label for="inputCity">Estimasi</label>

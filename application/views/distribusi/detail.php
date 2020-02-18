@@ -4,32 +4,32 @@
             <table>
             
                 <tr>
-                    <th>Kode Pengadaan</th>
-                    <td id="kodepengadaan">: <?= $pengadaan->kodepengadaan ?></td>
+                    <th>Kode Distribusi</th>
+                    <td id="kodepengadaan">: <?= $distribusi->kodedistribusi ?></td>
                 </tr>
                 <tr>
                     <th>Tanggal</th>
-                    <td id="tgl">: <?= mediumdate_indo($pengadaan->tgl) ?></td>
+                    <td id="tgl">: <?= mediumdate_indo($distribusi->tgldistribusi) ?></td>
                 </tr>
                 <tr>
                     <th>Total</th>
-                    <td id="total">: <?= $pengadaan->total ?></td>
+                    <td id="total">: <?= $distribusi->total ?></td>
                 </tr>
             </table>
         </div>
         <div class="col">
             <table>
                 <tr>
-                    <th>Supplier</th>
-                    <td id="sup">: <?= $pengadaan->Nama ?></td>
+                    <th>Cabang</th>
+                    <td id="sup">: <?= $distribusi->name ?></td>
                 </tr>
                 <tr>
                     <th>Alamat</th>
-                    <td id="alamat">: <?= $pengadaan->Alamat ?></td>
+                    <td id="alamat">: <?= $distribusi->alamat ?></td>
                 </tr>
                 <tr>
                     <th>Telp</th>
-                    <td id="telp">: <?= $pengadaan->Telp ?></td>
+                    <td id="telp">: <?= $distribusi->telp ?></td>
                 </tr>
             </table>
         </div>
@@ -38,19 +38,18 @@
             <tr>
                 <th>Nama Barang</th>
                 <th>Qty</th>
-                <th>Harga Beli</th>
+                <th>Harga</th>
             </tr>
         </thead>
         <tbody id="detail_cart">
-        <?php foreach($detail_pengadaan as $dp) : ?>
+        <?php foreach($detail_distribusi as $dd) : ?>
             <tr>
-                <td><?= $dp->nama_barang ?></td>
-                <td><?= $dp->jumlah ?></td>
-                <td><?= $dp->hargabeli?></td>
+                <td><?= $dd->nama_barang ?></td>
+                <td><?= $dd->jumlah ?></td>
+                <td><?= $dd->harga_jual?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
         </table>
-        <img src="./nota/pengadaan/<?= $pengadaan->fotonota ?>" class="img-fluid" alt="Responsive image">
     </div>
     </div>

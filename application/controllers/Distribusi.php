@@ -5,6 +5,7 @@ class Distribusi extends CI_Controller{
     function __construct()
     {
         parent::__construct();
+        $this->load->helper('tgl_indo');
         $this->load->model('Mdistribusi');
         $this->load->model('Mbarang');
         $this->load->model('Mstok');
@@ -14,7 +15,7 @@ class Distribusi extends CI_Controller{
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Distribusi';
-        $data['barang'] = $this->Mbarang->getbarang();
+        $data['distribusi'] = $this->Mdistribusi->getdistribusi();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -34,6 +35,7 @@ class Distribusi extends CI_Controller{
             $data['detail']= $this->Mdistribusi->showcart();
             $data['barang'] = $this->Mbarang->getbarang();
             $data['cabang'] = $this->Mcabang->getcabang();
+            $data['total'] = $this->Mdistribusi->counttotal();
     
             // get kode transaksi
             $kode = 'DS' . date('ymd');
@@ -67,9 +69,39 @@ class Distribusi extends CI_Controller{
     }
     
     public function getstok(){
-        // $id=$this->input->post('id');
-        $id=$this->input->post('tgl');
-        $data=$this->Mstok->cekStok($tgl);
+        $id=$this->input->post('id');
+        $tgl=$this->input->post('tgl');
+        $data=$this->Mstok->cekStok($tgl,$id);
         echo json_encode($data);
+    }
+
+    public function submit(){
+        $this->form_validation->set_rules('tgldist', 'Tanggal', 'required', ['required' => 'Tanggal tidak boleh kosong']);
+        $this->form_validation->set_rules('cab', 'Cabang', 'required', ['required' => 'Cabang tidak boleh kosong']);
+        // $this->form_validation->set_rules('nota', 'Nota', 'required', ['required' => 'Nota tidak boleh kosong']);
+        if ($this->form_validation->run() == false) {
+            $this->formdist();
+        } else {
+            $data = array(
+                'kodedistribusi' => $this->input->post('nodist'),
+                'tgldistribusi' => $this->input->post('tgldist'),
+                'idcabang' => $this->input->post('cab'),
+                'total' => $this->input->post('total')
+            );
+            $tambah = $this->Mdistribusi->savedistribusi($data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert">Berhasil Distribusi</div>');
+            redirect('Distribusi');
+        }
+    }
+
+    public function showdetail($id){
+        $data = $this->Mdistribusi->getdetail($id);
+
+        $response = [];
+        $response['distribusi'] = $this->Mdistribusi->getdistribusibyid($id);
+        $response['detail_distribusi'] = $this->Mdistribusi->getdetail($id);
+
+        // echo json_encode($response);
+        $this->load->view('distribusi/detail',$response);
     }
 }

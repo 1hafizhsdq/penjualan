@@ -56,7 +56,7 @@ class Mpengadaan extends CI_Model
         $hrgbl = $this->input->post('harga_beli');
         $subtotal = $jml*$hrgbl;
         $data = array(
-            'idbarang' => $this->input->post('id'),
+            'idbarang' => $this->input->post('barang'),
             'jumlah' => $this->input->post('jumlah'),
             'hargabeli' => $this->input->post('harga_beli'),
             'subtotal' => $subtotal,
@@ -66,7 +66,7 @@ class Mpengadaan extends CI_Model
         $this->db->insert('detailpengadaan',$data);
 
         $datastok = array(
-            'idbarang' => $this->input->post('id'),
+            'idbarang' => $this->input->post('barang'),
             'stok' => $this->input->post('jumlah'),
             'tglstok' => 0
         );

@@ -26,7 +26,7 @@
             <th scope="row"><?= $no ?></th>
             <td><?= $p->kodepengadaan ?></td>
             <td><?= $p->Nama ?></td>
-            <td><?= $p->tgl ?></td>
+            <td><?= mediumdate_indo($p->tgl) ?></td>
             <td>Rp. <?= number_format($p->total,2) ?></td>
             <td>
               <a class="btn btn-primary showdetail" href="" data-toggle="modal" data-url="<?=base_url('Pengadaan/showdetail/') ?><?= $p->id ?>" data-target=".bd-example-modal-lg">Detail</a>

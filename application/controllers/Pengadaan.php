@@ -5,9 +5,11 @@ class Pengadaan extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->helper('tgl_indo');
         $this->load->model('Mpengadaan');
         $this->load->model('Mbarang');
         $this->load->model('Msupplier');
+        $this->load->model('Mstok');
     }
 
     public function index()
@@ -147,5 +149,11 @@ class Pengadaan extends CI_Controller
         $this->dompdf->load_html($html);
         $this->dompdf->render();
         $this->dompdf->stream("Laporan Pengadaan".$awal." sampai ".$akhir.".pdf", array("attachment" =>0));
+    }
+
+    public function getstok(){
+        $id=$this->input->post('id');
+        $data=$this->Mstok->hitungstok($id);
+        echo json_encode($data);
     }
 }//end 

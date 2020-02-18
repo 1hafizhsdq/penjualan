@@ -61,7 +61,7 @@
         <label for="inputCity" style="ext-align:left">Supplier : &nbsp;<?= $retur->supplier;?></label>
             </th>
             <th width="250">
-        <label for="inputCity" style="ext-align:right">Tanggal : &nbsp;<?= $retur->tanggal;?></label>
+        <label for="inputCity" style="ext-align:right">Tanggal : &nbsp;<?= mediumdate_indo($retur->tanggal);?></label>
             </th>
         </tr>
         <tr><th width="250">
