@@ -19,25 +19,23 @@
             <th scope="col" width="100">Action</th>
           </tr>
         </thead>
-        <tbody>
-          <?php $no = 1; ?>
-          <?php foreach($pengadaan as $p) : ?>
-          <tr>
-            <th scope="row"><?= $no ?></th>
-            <td><?= $p->kodepengadaan ?></td>
-            <td><?= $p->Nama ?></td>
-            <td><?= $p->tgl ?></td>
-            <td>Rp. <?= number_format($p->total,2) ?></td>
-            <td>
-              <a class="btn btn-primary showdetail" href="" data-toggle="modal" data-url="<?=base_url('Pengadaan/showdetail/') ?><?= $p->id ?>" data-target=".bd-example-modal-lg">Detail</a>
-            </td>
-          </tr>
-          <?php $no++ ?>
-          <?php endforeach ; ?>
-        
+        <tbody><?php $no = 1; ?>
+          <?php foreach ($pengadaan as $p) : ?>
+            <tr>
+              <th scope="row"><?= $no++; ?></th>
+              <td><?= $p->kodepengadaan ?></td>
+              <td><?= $p->Nama ?></td>
+              <td><?= $p->tgl ?></td>
+              <td>Rp. <?= number_format($p->total, 2) ?></td>
+              <td>
+                <a class="btn btn-primary showdetail" href="" data-toggle="modal" data-url="<?= base_url('Pengadaan/showdetail/') ?><?= $p->id ?>" data-target=".bd-example-modal-lg">Detail</a>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+
         </tbody>
       </table>
-      
+
       <div id="modaldetail" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
@@ -48,13 +46,11 @@
               </button>
             </div>
             <div class="modal-body">
-              
+
             </div>
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
 
@@ -65,7 +61,6 @@
 <script rel="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript">
   $(".showdetail").click(function() {
-        $("#modaldetail .modal-body").load(`${$(this).data('url')}`)
-    })
+    $("#modaldetail .modal-body").load(`${$(this).data('url')}`)
+  })
 </script>
-

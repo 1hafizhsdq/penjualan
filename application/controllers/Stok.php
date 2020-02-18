@@ -1,7 +1,28 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-class Stok extends CI_Controller{
-    public function getstok($getId){
+class Stok extends CI_Controller
+{
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Mstok');
+        $this->load->library('pagination');
+        $this->load->helper(array('url'));
+    }
+
+    public function index()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Stok';
+        $data['stok'] = $this->Mstok->allstok();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('stok/index.php', $data);
+        $this->load->view('templates/footer', $data);
+    }
+    public function getstok($getId)
+    {
         $id = encode_php_tags($getId);
         $query = $this->admin->cekStok($id);
         output_json($query);

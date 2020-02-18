@@ -5,7 +5,6 @@
   <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
   <div class="row">
     <div class="col-lg">
-
       <?= $this->session->flashdata('message'); ?>
       <a href="<?= base_url() ?>Barang/formbarang" class="btn btn-primary mb-3"> Tambah Barang</a>
       <table class="table table-hover">
@@ -19,10 +18,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <?php $no = 1; ?>
+          <tr><?= $no = 1; ?>
             <?php foreach ($barang as $b) : ?>
-              <th scope="row"><?= $no ?></th>
+              <td scope="row"><?= $no++; ?></td>
               <td><?= $b->nama_barang ?></td>
               <td><?= $b->satuan ?></td>
               <td><?= $b->harga_jual ?></td>
@@ -30,7 +28,6 @@
                 <a href="<?= base_url('Barang/editbarang/') ?><?= $b->id ?>" class="btn btn-success">Edit</a>
                 <a href="<?= base_url('Barang/delbarang/'); ?><?= $b->id; ?>" class="btn btn-danger">Hapus</a>
               </td>
-              <?php $no++ ?>
           </tr>
         <?php endforeach; ?>
         </tbody>
@@ -61,7 +58,7 @@
           </div>
         </div>
       <?php endforeach; ?>
-      
+
     </div>
   </div>
 
