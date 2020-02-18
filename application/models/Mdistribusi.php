@@ -17,13 +17,12 @@ class Mdistribusi extends CI_Model
     public function insertdetailfirst(){
         $idbar = $this->input->post('barang');
         $tgl = $this->input->post('tgl');
-        $stokinduk = $this->db->query("select stok from stok where idbarang='$idbar' and tglstok ='$tgl'")->result();
+        $stokinduk = $this->db->query("select stok from stok where idbarang='$idbar' and tglstok ='$tgl'")->result_array();
         $jml = $this->input->post('jumlah');
         $hrgbl = $this->input->post('hrgjual');
 
-        $krgstok = $stokinduk[]-$jml;
+        $krgstok = $stokinduk[0]['stok']-$jml;
         $subtotal = $jml*$hrgbl;
-        print_r($krgstok);die;
 
         $data = array(
             'idbarang' => $this->input->post('barang'),
@@ -39,8 +38,7 @@ class Mdistribusi extends CI_Model
             'idbarang' => $this->input->post('barang'),
             'stok' => $this->input->post('jumlah'),
             'tglbarang' => $this->input->post('tgl'),
-            'idcabang' => 0,
-            'tglbarang' => 0
+            'idcabang' => 0
         );
         $this->db->insert('stokcabang',$datastok);
 
@@ -60,9 +58,11 @@ class Mdistribusi extends CI_Model
         $this->db->where('idbarang',$id);
         $this->db->where('tglbarang',$tgl);
         $this->db->delete('detaildistribusi');
-        $this->db->query('delete from stokcabang where idbarang="'.$id.'" and tglbarang="'.$tgl.'" and status = 0');
-        $stokinduk = $this->db->query("select stok from stok where idbarang='$idbar' and tglstok ='$tgl'");
-        $tbhstok = $stokinduk->num_rows()+$jml;
+
+        $delstokcab = $this->db->query('delete from stokcabang where idbarang="'.$id.'" and tglbarang="'.$tgl.'" and status = 0');
+
+        $stokinduk = $this->db->query("select stok from stok where idbarang='$idbar' and tglstok ='$tgl'")->result_array();
+        $tbhstok = $stokinduk[0]['stok']+$jml;
         $this->db->set('stok',$tbhstok);
         $this->db->where('idbarang',$idbar);
         $this->db->where('tglstok',$tgl);
