@@ -8,7 +8,7 @@
 
       <?= $this->session->flashdata('message'); ?>
       <a href="<?= base_url() ?>Pengadaan/formpengadaan" class="btn btn-primary mb-3"> Pengadaan Baru</a>
-      <table class="table table-hover">
+      <table class="table table-hover" id="table">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -20,21 +20,7 @@
           </tr>
         </thead>
         <tbody>
-          <?php $no = 1; ?>
-          <?php foreach($pengadaan as $p) : ?>
-          <tr>
-            <th scope="row"><?= $no ?></th>
-            <td><?= $p->kodepengadaan ?></td>
-            <td><?= $p->Nama ?></td>
-            <td><?= mediumdate_indo($p->tgl) ?></td>
-            <td>Rp. <?= number_format($p->total,2) ?></td>
-            <td>
-              <a class="btn btn-primary showdetail" href="" data-toggle="modal" data-url="<?=base_url('Pengadaan/showdetail/') ?><?= $p->id ?>" data-target=".bd-example-modal-lg">Detail</a>
-            </td>
-          </tr>
-          <?php $no++ ?>
-          <?php endforeach ; ?>
-        
+      
         </tbody>
       </table>
       
@@ -68,4 +54,27 @@
         $("#modaldetail .modal-body").load(`${$(this).data('url')}`)
     })
 </script>
+<script type="text/javascript">
+    var table;
+    $(document).ready(function() {
+        //datatables
+        table = $('#table').DataTable({ 
+            "processing": true, 
+            "serverSide": true, 
+            "order": [],             
+            "ajax": {
+                "url": "<?= base_url('Pengadaan/get_ajax')?>",
+                "type": "POST"
+            }, 
+            "columnDefs": [
+              { 
+                  "targets": [0,1,2,3,4], 
+                  "orderable": true, 
+              },
+            ], 
+        });
+ 
+    });
+</script>
+
 

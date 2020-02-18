@@ -38,6 +38,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script src="<?= base_url('assets/vendor/jquery/jquery-2.2.3.min.js')?>"></script>
+<script src="<?= base_url('assets/vendor/datatables/jquery.dataTables.min.js')?>"></script>
 <!-- Core plugin JavaScript-->
 <script src="<?= base_url('assets'); ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -75,7 +77,7 @@
     });
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).ready(function() {
         var basePath = $("#base_path").val();
         $("#nama_barang").autocomplete({
@@ -124,7 +126,7 @@
             }
         });
     });
-</script>
+</script> -->
 
 </body>
 
