@@ -6,6 +6,7 @@ class Retur extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->helper('tgl_indo');
         $this->load->model('Mretur');
         //$this->load->library('pagination');
         $this->load->helper(array('url'));

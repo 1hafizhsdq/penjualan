@@ -72,7 +72,7 @@
                 <td style="text-align: center; vertical-align: middle;"><?= $lp->koderetur ?></td>
                 <td style="text-align: center; vertical-align: middle;"><?= $lp->kode ?></td>
                 <td style="text-align: center; vertical-align: middle;"><?= $lp->supplier ?></td>
-                <td style="text-align: center; vertical-align: middle;"><?= $lp->tanggal ?></td>
+                <td style="text-align: center; vertical-align: middle;"><?= mediumdate_indo($lp->tanggal) ?></td>
                 <?php
                         $l =  $lp->estimasi;
                         if ($l == '5') {
