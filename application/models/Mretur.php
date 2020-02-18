@@ -41,22 +41,37 @@ class Mretur extends CI_Model
     //savedetail
     public function detailretur()
     {
-
+        $tanggal = $this->input->post('tanggal');
+        $idretur = $this->input->post('Id');
+        $idbarang = $this->input->post('idbarang');
+        $jumlah = $this->input->post('jumlah');
         $query =
             $this->db->insert(
                 'detailretur',
                 array(
-                    'id_retur' => $this->input->post('Id'),
-                    'id_barang' => $this->input->post('idbarang'),
-                    'jumlah' => $this->input->post('jumlah')
+                    'id_retur' => $idretur,
+                    'id_barang' => $idbarang,
+                    'jumlah' => $jumlah
                 )
             );
+        $stok = $this->db->query("select stok from stok where
+         idbarang='$idbarang' order by stok desc limit 1")->row();
+        $stokinduk = $stok->stok;
+        $updatestok = $stokinduk - $jumlah;
+        $stok = $this->db->insert('stok', array(
+            'idbarang' => $idbarang,
+            'tglstok' => $tanggal,
+            'stok' => $updatestok,
+            'status' => 1
+        ));
     }
 
     public function showall()
     {
-        $query = $this->db->query('SELECT detailretur.jumlah , barang.nama_barang as nama_barang,
-         detailretur.id_barang as id, detailretur.id_barang as idbarang from detailretur , barang ORDER BY id_retur DESC limit 1');
+        //$returid = $this->input->post('Id');
+        $query = $this->db->query("SELECT detailretur.jumlah , barang.nama_barang as nama_barang,
+         detailretur.id_barang as id, detailretur.id_barang as 
+         idbarang from detailretur , barang where detailretur.id_barang = barang.id ORDER BY id_retur DESC limit 1 ");
         return $query->result_array();
     }
 
@@ -70,7 +85,7 @@ class Mretur extends CI_Model
          WHERE
          pengadaan.id = retur.id_pengadaan 
          and pengadaan.idsup = supplier.id
-          ORDER BY retur.Id asc limit 1");
+          ORDER BY retur.Id desc limit 1");
         return $result->row_array();
     }
 
