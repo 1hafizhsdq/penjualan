@@ -11,6 +11,35 @@ class Distribusi extends CI_Controller{
         $this->load->model('Mstok');
         $this->load->model('Mcabang');
     }
+
+    function get_ajax() {
+        $list = $this->Mdistribusi->get_datatables();
+        $data = array();
+        $no = @$_POST['start'];
+        foreach ($list as $item) {
+            $no++;
+            $row = array();
+            $row[] = $no.".";
+            $row[] = $item->kodedistribusi;
+            $row[] = $item->name;
+            $row[] = mediumdate_indo($item->tgldistribusi);
+            $row[] = "Rp. ".number_format($item->total,2);
+            // add html for action
+            $row[] = "<a class='btn btn-primary showdetail' href='' data-toggle='modal' data-url='".base_url('Distribusi/showdetail/'. $item->id )."' data-target='.bd-example-modal-lg'>Detail</a>
+            <a class='btn btn-warning showdetail' href='".base_url('Distribusi/cetaknota/'.$item->id)."'>Nota</a>";
+            // '<a class="btn btn-primary showdetail" href="" data-toggle="modal" data-url="base_url("Pengadaan/showdetail/'. $item->id .'")" data-target=".bd-example-modal-lg">Detail</a>';
+            $data[] = $row;
+        }
+        $output = array(
+                    "draw" => @$_POST['draw'],
+                    "recordsTotal" => $this->Mdistribusi->count_all(),
+                    "recordsFiltered" => $this->Mdistribusi->count_filtered(),
+                    "data" => $data,
+                );
+        // output to json format
+        echo json_encode($output);
+    }
+
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();

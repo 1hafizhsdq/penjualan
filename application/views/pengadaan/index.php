@@ -81,7 +81,7 @@
         });
     });
 </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     var table;
     $(document).ready(function() {
         //datatables
@@ -102,7 +102,7 @@
         });
  
     });
-</script>
+</script> -->
 
 
 

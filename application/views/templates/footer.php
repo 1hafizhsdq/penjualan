@@ -77,57 +77,6 @@
     });
 </script>
 
-<!-- <script type="text/javascript">
-    $(document).ready(function() {
-        var basePath = $("#base_path").val();
-        $("#nama_barang").autocomplete({
-            source: function(request, cb) {
-                console.log(request);
-
-                $.ajax({
-                    url: basePath + 'Pengadaan/get_auto/' + request.term,
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function(res) {
-                        var result;
-                        result = [{
-                            label: 'There is no matching record found for ' + request.term,
-                            value: ''
-                        }];
-
-                        console.log("Before format", res);
-
-
-                        if (res.length) {
-                            result = $.map(res, function(obj) {
-                                return {
-                                    label: obj.nama_barang,
-                                    value: obj.nama_barang,
-                                    data: obj
-                                };
-                            });
-                        }
-
-                        console.log("formatted response", result);
-                        cb(result);
-                    }
-                });
-            },
-            select: function(event, selectedData) {
-                console.log(selectedData);
-
-                if (selectedData && selectedData.item && selectedData.item.data) {
-                    var data = selectedData.item.data;
-
-                    $('#stok').val(data.stok);
-                    $('#id').val(data.id);
-                }
-
-            }
-        });
-    });
-</script> -->
-
 </body>
 
 </html>

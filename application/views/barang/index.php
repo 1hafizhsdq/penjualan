@@ -14,7 +14,7 @@
             <th scope="col">Nama Barang</th>
             <th scope="col">Satuan</th>
             <th scope="col">Harga Jual</th>
-            <th scope="col">Action</th>
+            <th scope="col" width="130">Action</th>
           </tr>
         </thead>
         <tbody>
