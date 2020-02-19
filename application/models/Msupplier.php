@@ -8,6 +8,7 @@ class Msupplier extends CI_Model
         return $data->result_array();
     }
 
+
     public function getsupbyid($where, $table)
     {
         $data = $this->db->get_where($table, $where);
@@ -20,7 +21,8 @@ class Msupplier extends CI_Model
         $this->db->delete('supplier');
     }
 
-    public function create($data){
+    public function create($data)
+    {
         $this->db->insert('supplier', $data);
         return $this->db->insert_id();
     }

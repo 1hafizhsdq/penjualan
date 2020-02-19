@@ -12,6 +12,35 @@ class Pengadaan extends CI_Controller
         $this->load->model('Mstok');
     }
 
+
+    function get_ajax() {
+        $list = $this->Mpengadaan->get_datatables();
+        $data = array();
+        $no = @$_POST['start'];
+        foreach ($list as $item) {
+            $no++;
+            $row = array();
+            $row[] = $no.".";
+            $row[] = $item->kodepengadaan;
+            $row[] = $item->Nama;
+            $row[] = mediumdate_indo($item->tgl);
+            $row[] = "Rp. ".number_format($item->total,2);
+            // add html for action
+            $row[] = "<a class='btn btn-primary showdetail' href='' data-toggle='modal' data-url='".base_url('Pengadaan/showdetail/'. $item->id )."' data-target='.bd-example-modal-lg'>Detail</a>";
+            // '<a class="btn btn-primary showdetail" href="" data-toggle="modal" data-url="base_url("Pengadaan/showdetail/'. $item->id .'")" data-target=".bd-example-modal-lg">Detail</a>';
+            $data[] = $row;
+        }
+        $output = array(
+                    "draw" => @$_POST['draw'],
+                    "recordsTotal" => $this->Mpengadaan->count_all(),
+                    "recordsFiltered" => $this->Mpengadaan->count_filtered(),
+                    "data" => $data,
+                );
+        // output to json format
+        echo json_encode($output);
+    }
+
+
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -114,11 +143,9 @@ class Pengadaan extends CI_Controller
 
     public function showdetail($id){
         $data = $this->Mpengadaan->getdetail($id);
-
         $response = [];
         $response['pengadaan'] = $this->Mpengadaan->getpengadaanbyid($id);
         $response['detail_pengadaan'] = $this->Mpengadaan->getdetail($id);
-
         // echo json_encode($response);
         $this->load->view('pengadaan/detail',$response);
     }
@@ -156,4 +183,6 @@ class Pengadaan extends CI_Controller
         $data=$this->Mstok->hitungstok($id);
         echo json_encode($data);
     }
+
+    
 }//end 

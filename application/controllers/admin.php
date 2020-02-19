@@ -20,6 +20,8 @@ class admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/index.php', $data);
         $this->load->view('templates/footer', $data);
+
+        
         //}
     }
     public function role()
@@ -31,11 +33,14 @@ class admin extends CI_Controller
         $data['title'] = 'Role';
 
         if ($this->form_validation->run() == false) {
+
+
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('admin/role.php', $data);
             $this->load->view('templates/footer', $data);
+
         } else {
             $this->db->insert('user_role', ['role' => $this->input->post('role')]);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">

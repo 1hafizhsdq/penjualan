@@ -104,4 +104,50 @@ class Distribusi extends CI_Controller{
         // echo json_encode($response);
         $this->load->view('distribusi/detail',$response);
     }
+
+    public function laporan(){
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Distribusi';
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('distribusi/laporan.php', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function cetaklaporan(){
+        $this->load->library('dompdf_gen');
+        $awal = $this->input->post('tglmulai');
+        $akhir = $this->input->post('tglselesai');
+        // print_r($akhir);die;
+        $data['laporan'] = $this->Mdistribusi->getdistribusibydate();
+
+        $this->load->view('distribusi/cetakdistribusi',$data);
+
+        $paper_size = 'A4';
+        $orientation = 'potrait';
+        $html = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size,$orientation);
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream("Laporan Distribusi".$awal." sampai ".$akhir.".pdf", array("attachment" =>0));
+    }
+    
+    public function cetaknota($id)
+    {
+        $this->load->library('dompdf_gen');
+        $data['dist'] = $this->Mdistribusi->getdistribusibyid($id);
+        $data['det'] = $this->Mdistribusi->getdetail($id);
+        $data['total'] = $this->Mdistribusi->counttotalbyid($id);
+        // print_r($data['total']);die;
+        $this->load->view('distribusi/cetaknota', $data);
+        $paper_size = 'A5';
+        $orientation = 'landscape';
+        $html = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream("Nota Retur" . $id . ".pdf", array("attachment" => 0));
+    }
 }

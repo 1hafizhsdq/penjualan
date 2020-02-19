@@ -23,10 +23,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $a = 1; ?>
                     <?php foreach ($supplier as $sp) : ?>
                         <tr>
-                            <th scope="row"><?= $a++; ?></th>
+                            <th scope="row"><?php $no++; ?></th>
                             <td><?= $sp['Nama']; ?></td>
                             <td><?= $sp['Alamat']; ?></td>
                             <td><?= $sp['Telp']; ?></td>
