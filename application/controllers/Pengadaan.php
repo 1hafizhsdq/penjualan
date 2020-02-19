@@ -40,7 +40,6 @@ class Pengadaan extends CI_Controller
         echo json_encode($output);
     }
 
-
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -186,5 +185,5 @@ class Pengadaan extends CI_Controller
         echo json_encode($data);
     }
 
-    
+
 }//end 

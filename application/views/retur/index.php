@@ -1,5 +1,4 @@
 <div class="container-fluid">
-
     <h1 class="h3 mb-2 text-gray-800"><?= $title; ?></h1>
     <!-- Page Heading -->
     <div class="row">
@@ -11,7 +10,7 @@
                 </div>
                 <div class="card-body">
                     <div class="card-body">
-                        <table class="table table-striped" id="cart">
+                        <table class="table table-hover" id="table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -24,31 +23,7 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody><?php $no = 1; ?>
-                                <?php foreach ($retur as $r) : ?>
-                                    <tr class="centered">
-                                        <td><?= $no++; ?></td>
-                                        <td><?= $r['koderetur'] ?></td>
-                                        <td><?= mediumdate_indo($r['tanggal']) ?></td>
-                                        <td><?= $r['kode'] ?></td>
-                                        <td><?= $r['supplier'] ?></td>
-                                        <?php
-                                        $st = $r['status'];
-                                        if ($st == '0') {
-                                            $st = 'Menunggu Retur';
-                                        }
-                                        if ($st == '1') {
-                                            $st = 'Retur';
-                                        }
-                                        ?>
-                                        <td><?= $r['estimasi'] ?></td>
-                                        <td><?= $st ?></td>
-                                        <td>
-                                            <a href="<?= base_url('retur/detailedit/') . $r['Id']; ?>" class="btn btn-info">access</a>
-                                            <a href="<?= base_url('Retur/cetaknota/') . $r['Id']; ?>" class="btn btn-warning">Cetak</a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
+                            <tbody>
                             </tbody>
                         </table>
 
@@ -58,3 +33,29 @@
 
         </div>
     </div>
+    <script rel="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(".showdetail").click(function() {
+            $("#modaldetail .modal-body").load(`${$(this).data('url')}`)
+        })
+    </script>
+    <script type="text/javascript">
+        var table;
+        $(document).ready(function() {
+            //datatables
+            table = $('#table').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "order": [],
+                "ajax": {
+                    "url": "<?= base_url('Retur/get_ajax') ?>",
+                    "type": "POST"
+                },
+                "columnDefs": [{
+                    "targets": [0, 6],
+                    "orderable": false,
+                }, ],
+            });
+
+        });
+    </script>

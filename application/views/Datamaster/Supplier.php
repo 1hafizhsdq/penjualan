@@ -12,7 +12,7 @@
             <?php endif; ?>
             <?= $this->session->flashdata('message'); ?>
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newsupmodal"> Add New Supplier</a>
-            <table class="table table-hover">
+            <table class="table table-hover" id="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -23,18 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($supplier as $sp) : ?>
-                        <tr>
-                            <th scope="row"><?php $no++; ?></th>
-                            <td><?= $sp['Nama']; ?></td>
-                            <td><?= $sp['Alamat']; ?></td>
-                            <td><?= $sp['Telp']; ?></td>
-                            <td>
-                                <a href="" class="badge badge-pill badge-success">edit</a>
-                                <a href="<?= base_url('Datamaster/delsupplier/'); ?><?= $sp['id']; ?>" class="badge btn btn-danger">hapus</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
+
                 </tbody>
             </table>
         </div>
@@ -81,3 +70,24 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    var table;
+    $(document).ready(function() {
+        //datatables
+        table = $('#table').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "order": [],
+            "ajax": {
+                "url": "<?= base_url('Supplier/get_ajax') ?>",
+                "type": "POST"
+            },
+            "columnDefs": [{
+                "targets": [0, 4],
+                "orderable": false,
+            }, ],
+        });
+
+    });
+</script>

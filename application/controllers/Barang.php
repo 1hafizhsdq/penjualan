@@ -9,6 +9,36 @@ class Barang extends CI_Controller
         $this->load->model('Mbarang');
     }
 
+    function get_ajax()
+    {
+        $list = $this->Mbarang->get_datatables();
+        $data = array();
+        $no = @$_POST['start'];
+        foreach ($list as $item) {
+            $no++;
+            $row = array();
+            $row[] = $no . ".";
+            $row[] = $item->nama_barang;
+            $row[] = $item->satuan;
+            $row[] = $item->harga_jual;
+            // add html for action
+            $row[] = "
+            <a href='" . base_url('Barang/editbarang/' . $item->id) . " 'class='btn btn-success'>Edit</a>
+            <a href='" . base_url('Barang/delbarang/' . $item->id) . " 'class='btn btn-danger'>Hapus</a>
+            ";
+           
+            $data[] = $row;
+        }
+        $output = array(
+            "draw" => @$_POST['draw'],
+            "recordsTotal" => $this->Mbarang->count_all(),
+            "recordsFiltered" => $this->Mbarang->count_filtered(),
+            "data" => $data,
+        );
+        // output to json format
+        echo json_encode($output);
+    }
+
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();

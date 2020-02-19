@@ -12,6 +12,38 @@ class Retur extends CI_Controller
         $this->load->helper(array('url'));
     }
 
+
+    function get_ajax()
+    {
+        $list = $this->Mretur->get_datatables();
+        $data = array();
+        $no = @$_POST['start'];
+        foreach ($list as $item) {
+            $no++;
+            $row = array();
+            $row[] = $no . ".";
+            $row[] = $item->Id;
+            $row[] = $item->tanggal;
+            $row[] = $item->kodepengadaan;
+            $row[] = $item->Nama;
+            $row[] = $item->estimasi;
+            $row[] = $item->status;
+            // add html for action
+            $row[] = "<a href=" . base_url('Retur/detailedit/') . $item['Id'] . " class='btn btn-info'>access</a>
+            <a href=" . base_url('Retur/cetaknota/') . $item['Id'] . " class='btn btn-warning'>Cetak</a>";
+            // '<a class="btn btn-primary showdetail" href="" data-toggle="modal" data-url="base_url("Pengadaan/showdetail/'. $item->id .'")" data-target=".bd-example-modal-lg">Detail</a>';
+            $data[] = $row;
+        }
+        $output = array(
+            "draw" => @$_POST['draw'],
+            "recordsTotal" => $this->Mretur->count_all(),
+            "recordsFiltered" => $this->Mretur->count_filtered(),
+            "data" => $data,
+        );
+        // output to json format
+        echo json_encode($output);
+    }
+
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -228,7 +260,4 @@ class Retur extends CI_Controller
             Access Changed
           </div>');
     }
-    // pagination
-
-    // pagination
 }

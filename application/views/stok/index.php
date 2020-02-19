@@ -6,7 +6,7 @@
             <h5 class="m-0 font-weight-bold text-primary mt-3"><?= $title; ?></h5>
         </div>
         <div class="card-body">
-            <form method="post" action="<? base_url('Stok/index'); ?>">
+            <form method="post" action="<? base_url('Stok/index/'); ?>">
                 <div class="form-row d-flex justify-content-last">
                     <div class="form-group col-md-6 mb-sm-2">
                         <input type="text" class="form-control" id="nama_barang" name="nama_barang" value="" autofocus="on">
@@ -19,7 +19,7 @@
         <hr />
         <div class="form-row d-flex justify-content-center">
             <hr class="sidebar-divider mt-1">
-            <table class="table table-bordered">
+            <table class="table table-hover" id="table">
                 <thead>
                     <tr>
                         <th scope="col">No.</th>
@@ -30,30 +30,36 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1; ?>
-                    <?php foreach ($stok as $s) : ?>
-                        <tr>
-                            <td><?= $no++; ?></td>
-                            <td><?= $s->nama_barang; ?></td>
-                            <td><?= $s->tglstok; ?></td>
-                            <td><?= $s->stok; ?></td>
-                            <?php
-                            $st = $s->status;
-                            if ($st == '0') {
-                                $st = 'Masuk';
-                            }
-                            if ($st == '1') {
-                                $st = 'Keluar';
-                            }
-                            ?>
-                            <td><?= $st; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
                 </tbody>
             </table>
-            <div class="form-row d-flex justify-content-center">
-                <?= $this->pagination->create_links(); ?>
-            </div>
         </div>
     </div>
 </div>
+
+
+<script rel="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(".showdetail").click(function() {
+        $("#modaldetail .modal-body").load(`${$(this).data('url')}`)
+    })
+</script>
+<script type="text/javascript">
+    var table;
+    $(document).ready(function() {
+        //datatables
+        table = $('#table').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "order": [],
+            "ajax": {
+                "url": "<?= base_url('Stok/get_ajax') ?>",
+                "type": "POST"
+            },
+            "columnDefs": [{
+                "targets": [0, 4],
+                "orderable": false,
+            }, ],
+        });
+
+    });
+</script>

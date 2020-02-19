@@ -9,6 +9,36 @@ class Supplier extends CI_Controller
         $this->load->model('Msupplier');
     }
 
+    function get_ajax()
+    {
+        $list = $this->Msupplier->get_datatables();
+        $data = array();
+        $no = @$_POST['start'];
+        foreach ($list as $item) {
+            $no++;
+            $row = array();
+            $row[] = $no . ".";
+            $row[] = $item->Nama;
+            $row[] = $item->Alamat;
+            $row[] = $item->Telp;
+            $row[] = $item->email;
+            // add html for action
+            $row[] = "
+            <a href='" . base_url('.Supplier/editsup/' . $item['id']) . "' class='btn btn-success'>Edit</a>
+            <a href='" . base_url('Supplier/delsup/' . $item['id']) . "' class='btn btn-danger'>Hapus</a>";
+
+            $data[] = $row;
+        }
+        $output = array(
+            "draw" => @$_POST['draw'],
+            "recordsTotal" => $this->Msupplier->count_all(),
+            "recordsFiltered" => $this->Msupplier->count_filtered(),
+            "data" => $data,
+        );
+        // output to json format
+        echo json_encode($output);
+    }
+
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();

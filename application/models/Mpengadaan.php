@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Mpengadaan extends CI_Model
 {
 
-     // start datatables
+    // start datatables
      private $table = "pengadaan";
      var $column_order = array(null, 'p.kodepengadaan', 's.Nama', 'p.tgl', 'p.total'); //set column field database for datatable orderable
      var $column_search = array('p.kodepengadaan', 's.Nama', 'p.tgl', 'p.total'); //set column field database for datatable searchable
@@ -15,7 +15,7 @@ class Mpengadaan extends CI_Model
         ->from('pengadaan p')
         ->join('supplier s', 'p.idsup=s.id', 'inner')
         // ->order_by('p.kodepengadaan', 'DESC')
-        ->limit(25);
+        ->limit(25);// harus
         // ->get();
         // $this->db->query("select p.*, s.Nama from pengadaan p join supplier s on p.idsup=s.id order by p.kodepengadaan DESC");
          $i = 0;

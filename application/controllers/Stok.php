@@ -10,6 +10,33 @@ class Stok extends CI_Controller
         $this->load->helper(array('url'));
     }
 
+    function get_ajax()
+    {
+        $list = $this->Mstok->get_datatables();
+        $data = array();
+        $no = @$_POST['start'];
+        foreach ($list as $item) {
+            $no++;
+            $row = array();
+            $row[] = $no . ".";
+            $row[] = $item->nama_barang;
+            $row[] = $item->tglstok;
+            $row[] = $item->stok;
+            $row[] = $item->status;
+            // add html for action
+
+            $data[] = $row;
+        }
+        $output = array(
+            "draw" => @$_POST['draw'],
+            "recordsTotal" => $this->Mstok->count_all(),
+            "recordsFiltered" => $this->Mstok->count_filtered(),
+            "data" => $data,
+        );
+        // output to json format
+        echo json_encode($output);
+    }
+
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -21,10 +48,10 @@ class Stok extends CI_Controller
         $this->load->view('stok/index.php', $data);
         $this->load->view('templates/footer', $data);
     }
-    public function getstok($getId)
-    {
-        $id = encode_php_tags($getId);
-        $query = $this->admin->cekStok($id);
-        output_json($query);
-    }
+    // public function getstok($getId)
+    // {
+    //     $id = encode_php_tags($getId);
+    //     $query = $this->admin->cekStok($id);
+    //     output_json($query);
+    // }
 }
