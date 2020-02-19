@@ -191,8 +191,8 @@ class Retur extends CI_Controller
         $data['retur'] = $this->Mretur->getreturbyid($id);
         $data['det'] = $this->Mretur->getdetail($id);
         $this->load->view('retur/cetaknota', $data);
-        $paper_size = 'A4';
-        $orientation = 'potrait';
+        $paper_size = 'A5';
+        $orientation = 'landscape';
         $html = $this->output->get_output();
         $this->dompdf->set_paper($paper_size, $orientation);
         $this->dompdf->load_html($html);

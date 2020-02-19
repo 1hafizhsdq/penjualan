@@ -49,10 +49,37 @@
 </div>
 
 <script rel="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   $(".showdetail").click(function() {
         $("#modaldetail .modal-body").load(`${$(this).data('url')}`)
     })
+</script> -->
+<script type="text/javascript">
+    var table;
+    $(document).ready(function() {
+        //datatables
+        table = $('#table').DataTable({ 
+            "processing": true, 
+            "serverSide": true, 
+            "order": [],             
+            "ajax": {
+                "url": "<?= base_url('Pengadaan/get_ajax')?>",
+                "type": "POST"
+            }, 
+            "columnDefs": [
+              { 
+                  "targets": [0,5], 
+                  "orderable": false, 
+              },
+            ], 
+            "drawCallback": function( settings ) {
+                console.log( 'DataTables has redrawn the table' );
+                $(".showdetail").click(function() {
+                    $("#modaldetail .modal-body").load(`${$(this).data('url')}`)
+                })
+            }
+        });
+    });
 </script>
 <script type="text/javascript">
     var table;
@@ -76,5 +103,6 @@
  
     });
 </script>
+
 
 

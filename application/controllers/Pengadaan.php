@@ -142,11 +142,9 @@ class Pengadaan extends CI_Controller
 
     public function showdetail($id){
         $data = $this->Mpengadaan->getdetail($id);
-
         $response = [];
         $response['pengadaan'] = $this->Mpengadaan->getpengadaanbyid($id);
         $response['detail_pengadaan'] = $this->Mpengadaan->getdetail($id);
-
         // echo json_encode($response);
         $this->load->view('pengadaan/detail',$response);
     }
