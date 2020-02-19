@@ -15,9 +15,9 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>No. Retur</th>
-                                    <th>Tanggal Retur</th>
-                                    <th>No. Pengadaan</th>
+                                    <th>Kode Pengadaan</th>
                                     <th>Supplier</th>
+                                    <th>Tanggal</th>
                                     <th>Estimasi</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
@@ -52,7 +52,7 @@
                     "type": "POST"
                 },
                 "columnDefs": [{
-                    "targets": [0, 6],
+                    "targets": [0, 7],
                     "orderable": false,
                 }, ],
             });

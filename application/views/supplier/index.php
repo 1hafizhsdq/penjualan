@@ -7,7 +7,7 @@
         <div class="col-lg-9">
             <?= $this->session->flashdata('message'); ?>
             <a href="<?= base_url('Supplier/formsup') ?>" class="btn btn-primary mb-3"> Tambah Supplier</a>
-            <table class="table table-hover">
+            <table class="table table-hover" id="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -15,22 +15,11 @@
                         <th scope="col">Alamat</th>
                         <th scope="col">Telp</th>
                         <th scope="col">Handle</th>
+                        <th scope="col">Email</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $a = 1; ?>
-                    <?php foreach ($supplier as $sp) : ?>
-                        <tr>
-                            <th scope="row"><?= $a++; ?></th>
-                            <td><?= $sp['Nama']; ?></td>
-                            <td><?= $sp['Alamat']; ?></td>
-                            <td><?= $sp['Telp']; ?></td>
-                            <td>
-                                <a href="<?= base_url('Supplier/editsup/') ?><?= $sp['id'] ?>" class="btn btn-success">Edit</a>
-                                <a href="<?= base_url('Supplier/delsup/'); ?><?= $sp['id']; ?>" class="btn btn-danger">Hapus</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
+
                 </tbody>
             </table>
         </div>
@@ -41,3 +30,23 @@
 
 </div>
 <!-- End of Main Content -->
+<script type="text/javascript">
+    var table;
+    $(document).ready(function() {
+        //datatables
+        table = $('#table').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "order": [],
+            "ajax": {
+                "url": "<?= base_url('Supplier/get_ajax') ?>",
+                "type": "POST"
+            },
+            "columnDefs": [{
+                "targets": [0, 5],
+                "orderable": false,
+            }, ],
+        });
+
+    });
+</script>

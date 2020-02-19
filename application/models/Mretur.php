@@ -4,23 +4,18 @@ class Mretur extends CI_Model
 {
     // start datatables
     private $table = "retur";
-    var $column_order = array(null, 'retur.Id', 'retur.tanggal', 'pengadaan.kodepengadaan', 'supplier.Nama', 'retur.estimasi', 'retur.status'); //set column field database for datatable orderable
-    var $column_search = array('retur.Id', 'retur.tanggal', 'pengadaan.kodepengadaan', 'supplier.Nama', 'retur.estimasi', 'retur.status'); //set column field database for datatable searchable
+    var $column_order = array(null, 'koderetur', 'kodepengadaan', 'Nama', 'tanggal', 'estimasi', 'status'); //set column field database for datatable orderable
+    var $column_search = array('koderetur', 'kodepengadaan', 'Nama', 'tanggal', 'estimasi', 'status'); //set column field database for datatable searchable
     var $order = array('tanggal' => 'desc'); // default order
 
     private function _get_datatables_query()
     {
         $query = $this->db->select(
-            'retur.Id',
-            'retur.tanggal',
-            'pengadaan.kodepengadaan',
-            'supplier.Nama',
-            'retur.estimasi',
-            'retur.status'
+            'p.kodepengadaan, r.*, s.Nama'
         )
-            ->from('pengadaan')
-            ->join('supplier', 'pengadaan.idsup = supplier.id', 'inner')
-            ->join('retur', 'pengadaan.id = retur.id_pengadaan', 'inner')
+            ->from('pengadaan p')
+            ->join('retur r', 'p.id = r.id_pengadaan')
+            ->join('supplier s', 'p.idsup = s.id')
             ->limit(25);
         $i = 0;
 

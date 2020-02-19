@@ -71,23 +71,3 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    var table;
-    $(document).ready(function() {
-        //datatables
-        table = $('#table').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "order": [],
-            "ajax": {
-                "url": "<?= base_url('Supplier/get_ajax') ?>",
-                "type": "POST"
-            },
-            "columnDefs": [{
-                "targets": [0, 4],
-                "orderable": false,
-            }, ],
-        });
-
-    });
-</script>

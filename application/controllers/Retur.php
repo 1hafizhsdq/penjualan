@@ -11,8 +11,6 @@ class Retur extends CI_Controller
         //$this->load->library('pagination');
         $this->load->helper(array('url'));
     }
-
-
     function get_ajax()
     {
         $list = $this->Mretur->get_datatables();
@@ -22,15 +20,17 @@ class Retur extends CI_Controller
             $no++;
             $row = array();
             $row[] = $no . ".";
-            $row[] = $item->Id;
-            $row[] = $item->tanggal;
+            $row[] = $item->koderetur;
             $row[] = $item->kodepengadaan;
             $row[] = $item->Nama;
+            $row[] = $item->tanggal;
             $row[] = $item->estimasi;
             $row[] = $item->status;
             // add html for action
-            $row[] = "<a href=" . base_url('Retur/detailedit/') . $item['Id'] . " class='btn btn-info'>access</a>
-            <a href=" . base_url('Retur/cetaknota/') . $item['Id'] . " class='btn btn-warning'>Cetak</a>";
+            $row[] = "
+            <a href='" . base_url('retur/detailedit/') . $item->Id . "'
+            class='btn btn-info'>access</a>
+            <a href='" . base_url('Retur/cetaknota/') . $item->Id . "'class='btn btn-warning'>Cetak</a>";
             // '<a class="btn btn-primary showdetail" href="" data-toggle="modal" data-url="base_url("Pengadaan/showdetail/'. $item->id .'")" data-target=".bd-example-modal-lg">Detail</a>';
             $data[] = $row;
         }
@@ -43,6 +43,7 @@ class Retur extends CI_Controller
         // output to json format
         echo json_encode($output);
     }
+
 
     public function index()
     {
