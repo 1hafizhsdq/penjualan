@@ -6,7 +6,7 @@ class Msupplier extends CI_Model
     // start datatables
     private $table = "supplier";
     var $column_order = array(null, 'Nama', 'Alamat', 'Telp', 'email'); //set column field database for datatable orderable
-    var $column_search = array( 'Nama', 'Alamat', 'Telp', 'email'); //set column field database for datatable searchable
+    var $column_search = array('Nama', 'Alamat', 'Telp' . 'email'); //set column field database for datatable searchable
     var $order = array('Nama' => 'desc'); // default order
 
     private function _get_datatables_query()
